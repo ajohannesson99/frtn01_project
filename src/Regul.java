@@ -1,6 +1,4 @@
-import se.lth.control.realtime.AnalogIn;
-import se.lth.control.realtime.AnalogOut;
-import se.lth.control.realtime.IOChannelException;
+import se.lth.control.realtime.*;
 
 public class Regul extends Thread {
 
@@ -12,13 +10,19 @@ public class Regul extends Thread {
 
     private AnalogIn analogInAngle;
     private AnalogIn analogInPosition;
+
+    private AnalogIn analogInRef;
+
+    private DigitalIn sensor;
     private AnalogOut analogOut;
+
+    private DigitalOut fire;
 
     private int priority;
     private boolean shouldRun = true;
     private long startTime;
 
-    double angle, position;
+    double angle, position, ref;
 
     private ModeMonitor modeMon;
 
@@ -30,7 +34,12 @@ public class Regul extends Thread {
         try {
             analogInAngle = new AnalogIn(0);
             analogInPosition = new AnalogIn(1);
-            analogOut = new AnalogOut(1);
+            analogInRef = new AnalogIn(2);
+            sensor = new DigitalIn(0);
+
+            analogOut = new AnalogOut(0);
+            fire = new DigitalOut(0);
+
             /** Written by you*/
         } catch (Exception e) {
             System.out.print("Error: IOChannelException: ");
@@ -46,6 +55,7 @@ public class Regul extends Thread {
         try{
             angle = analogInAngle.get();
             position = analogInPosition.get();
+            ref = analogInRef.get();
         } catch (Exception e){
             System.out.println(e);
         }
@@ -145,6 +155,7 @@ public class Regul extends Thread {
                     angle = readInput(analogInAngle);
                     angleRef = refGen.getRef();
                 	 /** Written by you */
+
                     synchronized (inner) { 
                         u = limit(inner.calculateOutput(angle, angleRef));
                         writeOutput(u);
