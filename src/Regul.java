@@ -2,8 +2,8 @@ import se.lth.control.realtime.*;
 
 public class Regul extends Thread {
 
-    private PI inner = new PI("PI");
-    private PID outer = new PID("PID");
+    private PID inner = new PID("PIDInner");
+    private PID outer = new PID("PIDOuter");
 
     private ReferenceGenerator refGen;
     private OpCom opCom;
@@ -85,13 +85,13 @@ public class Regul extends Thread {
     }
 
     // Sets the inner controller's parameters
-    public void setInnerParameters(PIParameters p) {
+    public void setInnerParameters(PIDParameters p) {
         /** Written by you */
         inner.setParameters(p);
     }
 
     // Gets the inner controller's parameters
-    public PIParameters getInnerParameters() {
+    public PIDParameters getInnerParameters() {
         /** Written by you */
         return inner.getParameters();
     }

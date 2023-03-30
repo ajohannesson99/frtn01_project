@@ -11,7 +11,7 @@ public class OpCom {
 	private static final double eps = 0.000001;
 
 	private Regul regul;
-	private PIParameters innerPar;
+	private PIDParameters innerPar;
 	private PIDParameters outerPar;
 	private int priority;
 
@@ -30,6 +30,7 @@ public class OpCom {
 	private DoubleField innerParKField = new DoubleField(5,3);
 	private DoubleField innerParTiField = new DoubleField(5,3);
 	private DoubleField innerParTrField = new DoubleField(5,3);
+	private DoubleField innerParTdField = new DoubleField(5,3);
 	private DoubleField innerParBetaField = new DoubleField(5,3);
 	private DoubleField innerParHField = new DoubleField(5,3);
 	private JButton innerApplyButton;
@@ -101,6 +102,7 @@ public class OpCom {
 		innerParLabelPanel.add(new JLabel("K: "));
 		innerParLabelPanel.add(new JLabel("Ti: "));
 		innerParLabelPanel.add(new JLabel("Tr: "));
+		innerParLabelPanel.add(new JLabel("Td"));
 		innerParLabelPanel.add(new JLabel("Beta: "));
 		innerParLabelPanel.add(new JLabel("h: "));
 		innerParFieldPanel = new JPanel();
@@ -108,6 +110,7 @@ public class OpCom {
 		innerParFieldPanel.add(innerParKField); 
 		innerParFieldPanel.add(innerParTiField);
 		innerParFieldPanel.add(innerParTrField);
+		innerParFieldPanel.add(innerParTdField);
 		innerParFieldPanel.add(innerParBetaField);
 		innerParFieldPanel.add(innerParHField);
 
@@ -116,6 +119,7 @@ public class OpCom {
 		innerParTiField.setValue(innerPar.Ti);
 		innerParTiField.setMinimum(-eps);
 		innerParTrField.setValue(innerPar.Tr);
+		innerParTdField.setValue(innerPar.Td);
 		innerParTrField.setMinimum(-eps);
 		innerParBetaField.setValue(innerPar.Beta);
 		innerParBetaField.setMinimum(-eps);
@@ -144,6 +148,14 @@ public class OpCom {
 		innerParTrField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				innerPar.Tr = innerParTrField.getValue();
+				innerApplyButton.setEnabled(true);
+			}
+		});
+
+		innerParTdField.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				innerPar.Td = innerParTdField.getValue();
 				innerApplyButton.setEnabled(true);
 			}
 		});

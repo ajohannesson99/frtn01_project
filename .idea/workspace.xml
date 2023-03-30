@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1dacd7fc-2d85-4f5c-81a1-36896376f251" name="Changes" comment="merge main and reg">
+    <list default="true" id="1dacd7fc-2d85-4f5c-81a1-36896376f251" name="Changes" comment="channels for the new process">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpCom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpCom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Regul.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Regul.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680173789629</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="channels for the new process">
+      <created>1680174319085</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680174319085</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +144,7 @@
     <MESSAGE value="move .gitignore" />
     <MESSAGE value="Add files from Lab1" />
     <MESSAGE value="merge main and reg" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge main and reg" />
+    <MESSAGE value="channels for the new process" />
+    <option name="LAST_COMMIT_MESSAGE" value="channels for the new process" />
   </component>
 </project>
