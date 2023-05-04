@@ -178,7 +178,7 @@ public class Regul extends Thread {
                     synchronized (outer) {
                         angleRef = limit(outer.calculateOutput(y, yRef));
                         // writeOutput(angleRef);
-                        outer.updateState(angleRef - phiff);
+                        outer.updateState(angleRef);
                     }
                     
                     double uff = refGen.getUff();
@@ -186,7 +186,7 @@ public class Regul extends Thread {
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         writeOutput(u);
-                        inner.updateState(u - uff);
+                        inner.updateState(u);
                     }
                 
 

@@ -19,10 +19,10 @@ public class PID {
         p.Beta = 1.0;
         p.H = 0.05;
         p.integratorOn = false;
-        p.K = -0.05;
-        p.Ti = 0.0;
+        p.K = 0.9;
+        p.Ti = 1.0;
         p.Tr = 10.0;
-        p.Td = 2;
+        p.Td = 0.3;
         p.N = 10;
 
         ad = p.Td / (p.Td + p.N * p.H);
