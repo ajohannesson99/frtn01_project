@@ -237,7 +237,7 @@ public class Regul extends Thread {
                     boolean aligned;
 
                     try{
-                        aligned = sensor.get();
+                        aligned = !sensor.get();
                     }catch (Exception e) {
                         aligned = false;
                     }
