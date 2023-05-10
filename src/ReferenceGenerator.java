@@ -183,7 +183,7 @@ public class ReferenceGenerator extends Thread {
     }
 
 
-    private synchronized void setManual(double newManual) {
+    public synchronized void setManual(double newManual) {
         manual = newManual;
     }
 

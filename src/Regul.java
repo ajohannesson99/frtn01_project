@@ -253,6 +253,17 @@ public class Regul extends Thread {
                     }
                     sendDataToOpCom(angleRef, angle, u);
 
+                    try{
+                        aligned = !sensor.get();
+                    }catch (Exception e) {
+                        System.out.println("Whoops");
+                    }
+
+                    if (aligned){
+                            modeMon.setMode(ModeMonitor.Mode.BEAM);
+                            refGen.setManual(angleRef);
+                    }
+
                     break;
 
                 }
