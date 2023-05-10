@@ -191,6 +191,7 @@ public class Regul extends Thread {
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         volt.add(u);
+                        System.out.println(volt.get(-1));
                         writeOutput(u);
                         inner.updateState(u);
                     }
@@ -221,7 +222,7 @@ public class Regul extends Thread {
         }
         /** Written by you: Set control signal to zero before exiting run loop */
 
-        System.out.println(volt.get(0) + ", " + volt.get(10));
+
     }
 
     // Writes the control signal u to the output channel: analogOut
