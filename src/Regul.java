@@ -278,6 +278,7 @@ public class Regul extends Thread {
                 case PUSH_BALL: {
                     try{
                         fire.set(false);
+                        fire.set(true);
                     } catch (Exception e){
                         break;
                     }
