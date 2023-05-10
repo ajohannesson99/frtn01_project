@@ -243,7 +243,7 @@ public class Regul extends Thread {
                     }
 
                     if(!aligned){
-                        angleRef += 0.1;
+                        angleRef -= 0.005;
                     }
 
                     synchronized (inner) {
