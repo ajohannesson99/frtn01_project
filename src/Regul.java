@@ -1,9 +1,14 @@
 import se.lth.control.realtime.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Regul extends Thread {
 
     private PID inner = new PID("PIDInner");
     private PID outer = new PID("PIDOuter");
+
+    private List<Double> volt = new ArrayList<Double>();
 
     private ReferenceGenerator refGen;
     private OpCom opCom;
@@ -31,7 +36,7 @@ public class Regul extends Thread {
         setPriority(priority);
         this.modeMon = modeMon;
 
-        try {
+        /** try {
             analogInAngle = new AnalogIn(0);
             analogInPosition = new AnalogIn(1);
             analogInRef = new AnalogIn(2);
@@ -41,7 +46,7 @@ public class Regul extends Thread {
             fire = new DigitalOut(0);
 
             /** Written by you*/
-        } catch (Exception e) {
+       /** } catch (Exception e) {
             System.out.print("Error: IOChannelException: ");
             System.out.println(e.getMessage());
         }
@@ -50,7 +55,7 @@ public class Regul extends Thread {
             analogOut.set(0.0);
         } catch (Exception e) {
             System.out.println(e);
-        }
+        } */
 
         try{
             angle = analogInAngle.get();
@@ -185,6 +190,7 @@ public class Regul extends Thread {
                     
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
+                        volt.add(u);
                         writeOutput(u);
                         inner.updateState(u);
                     }
@@ -214,6 +220,8 @@ public class Regul extends Thread {
             }
         }
         /** Written by you: Set control signal to zero before exiting run loop */
+
+        System.out.println(volt.get(0) + ", " + volt.get(10));
     }
 
     // Writes the control signal u to the output channel: analogOut
