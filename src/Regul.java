@@ -8,6 +8,9 @@ public class Regul extends Thread {
     private PID inner = new PID("PIDInner");
     private PID outer = new PID("PIDOuter");
 
+    PIDParameters innerParam = new PIDParameters();
+    PIDParameters outerParam = new PIDParameters();
+
     private List<Double> volt = new ArrayList<Double>();
 
     private ReferenceGenerator refGen;
@@ -35,6 +38,29 @@ public class Regul extends Thread {
         priority = pri;
         setPriority(priority);
         this.modeMon = modeMon;
+
+        innerParam.K = 2.4;
+        innerParam.Ti = 2.8;
+        innerParam.Td = 0.2;
+        innerParam.H = 0.01;
+        innerParam.Tr = 10.0;
+        innerParam.N = 10;
+        innerParam.Beta = 1.0;
+        innerParam.integratorOn = false;
+
+        setInnerParameters(innerParam);
+
+        outerParam.K = -0.25;
+        outerParam.Ti = 0.0;
+        outerParam.Td = 0.9;
+        outerParam.H = 0.01;
+        outerParam.N = 10;
+        outerParam.Tr = 10.0;
+        outerParam.Beta = 1.0;
+        outerParam.integratorOn = false;
+
+        setOuterParameters(outerParam);
+
 
         try {
             analogInAngle = new AnalogIn(0);
