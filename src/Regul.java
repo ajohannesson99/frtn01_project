@@ -2,6 +2,7 @@ import se.lth.control.realtime.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Regul extends Thread {
 
@@ -282,6 +283,13 @@ public class Regul extends Thread {
                     } catch (Exception e){
                         break;
                     }
+
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(10);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     modeMon.setMode(ModeMonitor.Mode.BEAM);
                     break;
                 }
