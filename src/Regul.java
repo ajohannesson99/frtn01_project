@@ -36,7 +36,7 @@ public class Regul extends Thread {
         setPriority(priority);
         this.modeMon = modeMon;
 
-        /** try {
+        try {
             analogInAngle = new AnalogIn(0);
             analogInPosition = new AnalogIn(1);
             analogInRef = new AnalogIn(2);
@@ -45,8 +45,8 @@ public class Regul extends Thread {
             analogOut = new AnalogOut(0);
             fire = new DigitalOut(0);
 
-            /** Written by you*/
-       /** } catch (Exception e) {
+
+       } catch (Exception e) {
             System.out.print("Error: IOChannelException: ");
             System.out.println(e.getMessage());
         }
@@ -55,7 +55,7 @@ public class Regul extends Thread {
             analogOut.set(0.0);
         } catch (Exception e) {
             System.out.println(e);
-        } */
+        }
 
         try{
             angle = analogInAngle.get();
