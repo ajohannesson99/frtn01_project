@@ -262,6 +262,13 @@ public class Regul extends Thread {
                     if (aligned){
                             modeMon.setMode(ModeMonitor.Mode.BEAM);
                             refGen.setManual(angleRef);
+
+                            try{
+                                fire.set(true);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+
                     }
 
                     break;
