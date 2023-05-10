@@ -11,7 +11,7 @@ public class Regul extends Thread {
     PIDParameters innerParam = new PIDParameters();
     PIDParameters outerParam = new PIDParameters();
 
-    private List<Double> volt = new ArrayList<Double>();
+    protected List<Double> volt = new ArrayList<Double>();
 
     private ReferenceGenerator refGen;
     private OpCom opCom;

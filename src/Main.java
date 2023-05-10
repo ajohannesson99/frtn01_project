@@ -36,6 +36,11 @@ public class Main {
 
         // Start remaining threads
         refgen.start(); 
-        regul.start(); 
+        regul.start();
+
+        int i = 0;
+        while(i < 10) {
+            System.out.println(regul.volt);
+        }
     } 
 } 
