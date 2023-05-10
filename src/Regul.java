@@ -34,10 +34,13 @@ public class Regul extends Thread {
 
     private ModeMonitor modeMon;
 
-    public Regul(int pri, ModeMonitor modeMon) {
+    private SocketServer server;
+
+    public Regul(int pri, ModeMonitor modeMon, SocketServer server) {
         priority = pri;
         setPriority(priority);
         this.modeMon = modeMon;
+        this.server = server;
 
         innerParam.K = 2.4;
         innerParam.Ti = 2.8;
@@ -217,6 +220,7 @@ public class Regul extends Thread {
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         volt.add(u);
+                        server.writeMessage("volt", String.valueOf(u));
                         System.out.println(volt.get(-1));
                         writeOutput(u);
                         inner.updateState(u);

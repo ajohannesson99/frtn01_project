@@ -9,11 +9,13 @@ public class Main {
         // Set thread priorities
         final int regulPriority     = 8; 
         final int refGenPriority    = 7; 
-        final int plotterPriority   = 6; 
+        final int plotterPriority   = 6;
+        final int serverPriority    = 5;
 
         // Initialise Control system parts
         ReferenceGenerator refgen = new ReferenceGenerator(refGenPriority); 
-        Regul regul = new Regul(regulPriority, modeMon); 
+        SocketServer server = new SocketServer(55000);
+        Regul regul = new Regul(regulPriority, modeMon, server);
         final OpCom opcom = new OpCom(plotterPriority, modeMon); // Must be declared final since it is used in an inner class
 
         // Set dependencies
