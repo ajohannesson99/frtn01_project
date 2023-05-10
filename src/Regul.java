@@ -164,7 +164,7 @@ public class Regul extends Thread {
         long t = System.currentTimeMillis();
         startTime = t;
 
-        double angleRef = 0;
+        double angleRef = 0.0;
         double yRef, y, u;
 
 
@@ -233,6 +233,27 @@ public class Regul extends Thread {
                 }
 
                 case ALIGN: {
+                    angle = readInput(analogInAngle);
+                    boolean aligned;
+
+                    try{
+                        aligned = sensor.get();
+                    }catch (Exception e) {
+                        aligned = false;
+                    }
+
+                    if(!aligned){
+                        angleRef += 0.1;
+                    }
+
+                    synchronized (inner) {
+                        u = limit(inner.calculateOutput(angle, angleRef));
+                        writeOutput(u);
+                        inner.updateState(u);
+                    }
+                    sendDataToOpCom(angleRef, angle, u);
+
+                    break;
 
                 }
 
