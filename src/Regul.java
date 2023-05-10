@@ -221,7 +221,7 @@ public class Regul extends Thread {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         volt.add(u);
                         server.writeMessage("volt", String.valueOf(u));
-                        System.out.println(volt.get(-1));
+                        
                         writeOutput(u);
                         inner.updateState(u);
                     }
