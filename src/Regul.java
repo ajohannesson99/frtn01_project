@@ -282,6 +282,7 @@ public class Regul extends Thread {
                     } catch (Exception e){
                         break;
                     }
+                    modeMon.setMode(ModeMonitor.Mode.BEAM);
                     break;
                 }
 
