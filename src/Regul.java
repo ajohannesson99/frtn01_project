@@ -275,6 +275,42 @@ public class Regul extends Thread {
 
                 }
 
+                case PUSH_BALL: {
+                    try{
+                        fire.set(false);
+                    } catch (Exception e){
+                        break;
+                    }
+
+                    angle = readInput(analogInAngle);
+                    angleRef = 0.0;
+
+
+                    y = readInput(analogInPosition);
+                    yRef = refGen.getRef();
+
+
+                    synchronized (outer) {
+                        angleRef = limit(outer.calculateOutput(y, yRef));
+                        // writeOutput(angleRef);
+                        outer.updateState(angleRef);
+                    }
+
+
+
+                    synchronized (inner) {
+                        u = limit(inner.calculateOutput(angle, angleRef));
+                        volt.add(u);
+
+
+                        writeOutput(u);
+                        inner.updateState(u);
+                    }
+
+                    sendDataToOpCom(y, yRef, u);
+                    break;
+                }
+
                 default: {
                     System.out.println("Error: Illegal mode.");
                     break;

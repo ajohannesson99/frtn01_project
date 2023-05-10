@@ -11,6 +11,6 @@ public class ModeMonitor {
 // Existing modes public
     enum Mode {
 
-    OFF, BEAM, BALL, ALIGN;
+    OFF, BEAM, BALL, ALIGN, PUSH_BALL;
     }
 }

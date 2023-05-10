@@ -49,6 +49,8 @@ public class OpCom {
 	private JRadioButton ballModeButton;
 
 	private JRadioButton alignModeButton;
+
+	private JRadioButton pushBallModeButton;
 	private JButton stopButton;
 
 	private boolean hChanged = false;
@@ -329,6 +331,7 @@ public class OpCom {
 		beamModeButton = new JRadioButton("BEAM");
 		ballModeButton = new JRadioButton("BALL");
 		alignModeButton = new JRadioButton("ALIGN");
+		pushBallModeButton = new JRadioButton("PUSH BALL");
 		stopButton = new JButton("STOP");
 		// Group the radio buttons.
 		ButtonGroup group = new ButtonGroup();
@@ -359,6 +362,14 @@ public class OpCom {
 				modeMon.setMode(ModeMonitor.Mode.ALIGN);
 			}
 		});
+
+		pushBallModeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modeMon.setMode(ModeMonitor.Mode.PUSH_BALL);
+			}
+		});
+
 		stopButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				regul.shutDown();
@@ -371,8 +382,9 @@ public class OpCom {
 		// Add buttons to button panel.
 		buttonPanel.add(offModeButton, BorderLayout.NORTH);
 		buttonPanel.add(beamModeButton, BorderLayout.CENTER);
-		buttonPanel.add(ballModeButton, BorderLayout.SOUTH);
+		buttonPanel.add(ballModeButton, BorderLayout.CENTER);
 		buttonPanel.add(alignModeButton, BorderLayout.SOUTH);
+		buttonPanel.add(pushBallModeButton, BorderLayout.SOUTH);
 
 		// Panel for parameter panel and radio buttons
 		somePanel = new JPanel();
