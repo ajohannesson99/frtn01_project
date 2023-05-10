@@ -339,6 +339,7 @@ public class OpCom {
 		group.add(beamModeButton);
 		group.add(ballModeButton);
 		group.add(alignModeButton);
+		group.add(pushBallModeButton);
 		// Button action listeners.
 		offModeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -382,7 +383,7 @@ public class OpCom {
 		// Add buttons to button panel.
 		buttonPanel.add(offModeButton, BorderLayout.NORTH);
 		buttonPanel.add(beamModeButton, BorderLayout.CENTER);
-		buttonPanel.add(ballModeButton, BorderLayout.CENTER);
+		buttonPanel.add(ballModeButton, BorderLayout.SOUTH);
 		buttonPanel.add(alignModeButton, BorderLayout.SOUTH);
 		buttonPanel.add(pushBallModeButton, BorderLayout.SOUTH);
 
