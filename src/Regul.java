@@ -235,6 +235,8 @@ public class Regul extends Thread {
 
                 case ALIGN: {
                     angle = readInput(analogInAngle);
+                    angleRef = 0.0;
+                    refGen.setManual(angleRef);
                     boolean aligned;
 
                     try{
