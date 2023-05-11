@@ -186,6 +186,13 @@ public class Regul extends Thread {
                     writeOutput(u);
                     break;
                 }
+
+                case START: {
+                    refGen.setManual(0.0);
+                    server.writeMessage("BeamAligned", "" + 0);
+                    modeMon.setMode(ModeMonitor.Mode.BEAM);
+                }
+
                 case BEAM: {
                     angle = readInput(analogInAngle);
                     angleRef = refGen.getRef();
