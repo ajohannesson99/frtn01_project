@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<GCDocument color="-1" dimTicks="25" dpwsInterface="" dpwsPort="-1" height="748" horizontalScrollBar="1" modifiable="1" name="J1" saveVersion="8" scale="0.73" simulationMode="1" socketHost="" socketIsServer="0" socketPort="-1" socketSendMode="Changed" threadSpeed="40" tokenLuminance="0" verticalScrollBar="1" viewPositionX="-954" viewPositionY="0" width="1452" x="0" y="0">
-  <GCInitialStep actionBlockVisible="1" actionText="S ControlMode = 0;&#10;&#10;" fileName="" height="70" id="038cacfe-8772-40e4-9970-f252944defaa" name="Align_Beam" useIcon="0" width="200" x="160" y="55"/>
-  <GCTransition actionText="BeamAligned == 1" conditionVisible="1" height="25" id="ccaf3b24-8f23-40e8-b625-e2914532de26" width="30" x="175" y="200"/>
-  <GCStep actionBlockVisible="1" actionText="S PushBall = 1;" fileName="" height="70" id="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" name="" useIcon="0" width="200" x="160" y="275"/>
+<GCDocument color="-1" dimTicks="25" dpwsInterface="" dpwsPort="-1" height="925" horizontalScrollBar="1" modifiable="1" name="J1" saveVersion="8" scale="0.73" simulationMode="0" socketHost="localhost" socketIsServer="0" socketPort="55000" socketSendMode="Changed" threadSpeed="40" tokenLuminance="0" verticalScrollBar="1" viewPositionX="-898" viewPositionY="0" width="1775" x="0" y="0">
+  <GCInitialStep actionBlockVisible="1" actionText="S ControlMode = &quot;BEAM&quot;;&#10;&#10;" fileName="" height="70" id="038cacfe-8772-40e4-9970-f252944defaa" name="Set_Beam" useIcon="0" width="200" x="160" y="55"/>
+  <GCTransition actionText="Set_Beam.t &gt; 11" conditionVisible="1" height="25" id="ccaf3b24-8f23-40e8-b625-e2914532de26" width="30" x="175" y="140"/>
+  <GCStep actionBlockVisible="1" actionText="S Fire = 1;" fileName="" height="70" id="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" name="Fire_Block" useIcon="0" width="200" x="160" y="275"/>
   <DigitalIn channel="0" cyclic="1" height="60" name="BeamAligned" value="1" width="80" x="-460" y="260"/>
-  <GCTransition actionText="PushBall == 1" conditionVisible="1" height="25" id="75c0fd44-075f-4139-9c7b-8391b16c37f6" width="30" x="175" y="370"/>
-  <GCStep actionBlockVisible="1" actionText="S ControlMode = 1;" fileName="" height="70" id="8fbea1ba-aff8-4d90-a4df-3bc46770aea9" name="Catch_Ball" useIcon="0" width="200" x="160" y="445"/>
-  <GCTransition actionText="BallSize == 1" conditionVisible="1" height="25" id="92c2b592-a81c-4d30-874b-a461a54fc46a" width="30" x="-225" y="600"/>
+  <GCTransition actionText="Fire_Block.t &gt;= 11" conditionVisible="1" height="25" id="75c0fd44-075f-4139-9c7b-8391b16c37f6" width="30" x="175" y="380"/>
+  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;BALL&quot;;&#10;S Fire = 0;" fileName="" height="70" id="8fbea1ba-aff8-4d90-a4df-3bc46770aea9" name="Catch_Ball" useIcon="0" width="200" x="160" y="445"/>
+  <GCTransition actionText="1" conditionVisible="1" height="25" id="92c2b592-a81c-4d30-874b-a461a54fc46a" width="30" x="-225" y="600"/>
   <GCTransition actionText="BallSize == 2" conditionVisible="1" height="25" id="2e57f9d7-bac8-4288-bd4e-a724c5e6f402" width="30" x="175" y="610"/>
   <GCTransition actionText="BallSize == 3" conditionVisible="1" height="25" id="86433e85-7b3a-471f-b99d-d57addb04d6a" width="30" x="555" y="610"/>
   <GCStep actionBlockVisible="1" actionText="S SizeOut = 1;&#10;S AngleBeam = 120;" fileName="" height="70" id="5013d4c3-f64d-44f2-85c8-767f1ff71fe2" name="Small_Ball" useIcon="0" width="200" x="-240" y="675"/>
@@ -25,37 +25,33 @@
   <GCStep actionBlockVisible="1" actionText="S AngleBeam = 180;" fileName="" height="70" id="537ccac7-677a-4ee7-a0cb-dcf03be4558f" name="Medium_Throw" useIcon="0" width="200" x="160" y="1095"/>
   <GCTransition actionText="Medium_Throw.t &gt; 200" conditionVisible="1" height="25" id="440c3b49-fdd6-40a8-9412-8e18faa866e0" width="30" x="175" y="1210"/>
   <SocketIntIn height="60" identifier="" name="BallSize" value="0" width="80" x="-460" y="150"/>
-  <SocketBooleanOut height="60" identifier="" name="PushBall" procelmode="0" sendMode="Inherit" value="" width="96" x="-450" y="50"/>
-  <SocketIntOut height="60" identifier="" name="ControlMode" procelmode="0" sendMode="Inherit" value="" width="96" x="-330" y="50"/>
+  <SocketBooleanOut height="60" identifier="" name="PushBall" procelmode="0" sendMode="Inherit" value="1" width="96" x="-450" y="50"/>
+  <SocketStringIn height="60" identifier="volt" name="volt" value="-0.48280552200647064" width="80" x="-190" y="150"/>
+  <DigitalOut channel="0" height="60" name="Fire" value="0" width="80" x="-460" y="380"/>
+  <SocketStringOut height="60" identifier="" name="ControlMode" procelmode="0" sendMode="Inherit" value="BEAM" width="96" x="-320" y="50"/>
+  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;ALIGN&quot;;" fileName="" height="70" id="0a7d57e2-0606-4a3f-acc0-0538c7abcb0f" name="" useIcon="0" width="200" x="160" y="165"/>
+  <GCTransition actionText="BeamAligned == 1" conditionVisible="1" height="25" id="4f700b9b-7524-4ddd-aadc-d90107ebe322" width="30" x="175" y="240"/>
   <GCLink fromObject="038cacfe-8772-40e4-9970-f252944defaa" manAdj="0" toObject="ccaf3b24-8f23-40e8-b625-e2914532de26">
     <Stroke x="190" y="126"/>
     <Stroke x="190" y="136"/>
-    <Stroke x="190" y="162"/>
-    <Stroke x="190" y="162"/>
-    <Stroke x="190" y="189"/>
-    <Stroke x="190" y="199"/>
-  </GCLink>
-  <GCLink fromObject="ccaf3b24-8f23-40e8-b625-e2914532de26" manAdj="0" toObject="16b50a05-5ff1-4107-84e6-d4335f5ef6e5">
-    <Stroke x="190" y="226"/>
-    <Stroke x="190" y="236"/>
-    <Stroke x="190" y="250"/>
-    <Stroke x="190" y="250"/>
-    <Stroke x="190" y="264"/>
-    <Stroke x="190" y="274"/>
+    <Stroke x="190" y="136"/>
+    <Stroke x="190" y="129"/>
+    <Stroke x="190" y="129"/>
+    <Stroke x="190" y="139"/>
   </GCLink>
   <GCLink fromObject="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" manAdj="0" toObject="75c0fd44-075f-4139-9c7b-8391b16c37f6">
     <Stroke x="190" y="346"/>
     <Stroke x="190" y="356"/>
-    <Stroke x="190" y="357"/>
-    <Stroke x="190" y="357"/>
-    <Stroke x="190" y="359"/>
+    <Stroke x="190" y="362"/>
+    <Stroke x="190" y="362"/>
     <Stroke x="190" y="369"/>
+    <Stroke x="190" y="379"/>
   </GCLink>
   <GCLink fromObject="75c0fd44-075f-4139-9c7b-8391b16c37f6" manAdj="0" toObject="8fbea1ba-aff8-4d90-a4df-3bc46770aea9">
-    <Stroke x="190" y="396"/>
     <Stroke x="190" y="406"/>
-    <Stroke x="190" y="420"/>
-    <Stroke x="190" y="420"/>
+    <Stroke x="190" y="416"/>
+    <Stroke x="190" y="425"/>
+    <Stroke x="190" y="425"/>
     <Stroke x="190" y="434"/>
     <Stroke x="190" y="444"/>
   </GCLink>
@@ -202,5 +198,21 @@
     <Stroke x="435" y="44"/>
     <Stroke x="190" y="44"/>
     <Stroke x="190" y="54"/>
+  </GCLink>
+  <GCLink fromObject="4f700b9b-7524-4ddd-aadc-d90107ebe322" manAdj="0" toObject="16b50a05-5ff1-4107-84e6-d4335f5ef6e5">
+    <Stroke x="190" y="266"/>
+    <Stroke x="190" y="276"/>
+    <Stroke x="190" y="276"/>
+    <Stroke x="190" y="264"/>
+    <Stroke x="190" y="264"/>
+    <Stroke x="190" y="274"/>
+  </GCLink>
+  <GCLink fromObject="0a7d57e2-0606-4a3f-acc0-0538c7abcb0f" manAdj="0" toObject="4f700b9b-7524-4ddd-aadc-d90107ebe322">
+    <Stroke x="190" y="236"/>
+    <Stroke x="190" y="246"/>
+    <Stroke x="190" y="246"/>
+    <Stroke x="190" y="229"/>
+    <Stroke x="190" y="229"/>
+    <Stroke x="190" y="239"/>
   </GCLink>
 </GCDocument>
