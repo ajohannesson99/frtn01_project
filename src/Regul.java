@@ -235,14 +235,15 @@ public class Regul extends Thread {
 
                 case ALIGN: {
                     angle = readInput(analogInAngle);
-                    angleRef = 0.0;
+                   
                     refGen.setManual(angleRef);
-                    boolean aligned;
+                    boolean aligned = false;
 
                     try{
                         aligned = !sensor.get();
+			
                     }catch (Exception e) {
-                        aligned = false;
+
                     }
 
                     if(!aligned){
@@ -265,7 +266,7 @@ public class Regul extends Thread {
                     if (aligned){
                             modeMon.setMode(ModeMonitor.Mode.BEAM);
                             refGen.setManual(angleRef);
-                            server.writeMessage("BeamAligned", "" + true);
+                            server.writeMessage("BeamAligned", "" + 1);
 
                             try{
                                 fire.set(true);
