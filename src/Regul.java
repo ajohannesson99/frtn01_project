@@ -167,6 +167,7 @@ public class Regul extends Thread {
 
         double angleRef = 0.0;
         double yRef, y, u;
+	boolean aligned = false;
 
 
         while (shouldRun) {
@@ -228,7 +229,7 @@ public class Regul extends Thread {
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         volt.add(u);
-			server.writeMessage("volt", String.valueOf(u));
+			
                         
                         writeOutput(u);
                         inner.updateState(u);
@@ -244,7 +245,7 @@ public class Regul extends Thread {
                     angle = readInput(analogInAngle);
                    
                     refGen.setManual(angleRef);
-                    boolean aligned = false;
+                    
 
                     try{
                         aligned = !sensor.get();
@@ -255,6 +256,7 @@ public class Regul extends Thread {
 
                     if(!aligned){
                         angleRef -= 0.005;
+			server.writeMessage("angleRef", "" + angleRef);
                     }
 
                     synchronized (inner) {
@@ -270,16 +272,18 @@ public class Regul extends Thread {
                         System.out.println("Whoops");
                     }
 
+		    server.writeMessage("Aligned", ""+ aligned);
+
                     if (aligned){
                             modeMon.setMode(ModeMonitor.Mode.BEAM);
                             refGen.setManual(angleRef);
                             server.writeMessage("BeamAligned", "" + 1);
 
-                            try{
-                                fire.set(true);
-                            } catch (Exception e) {
-                                System.out.println(e);
-                            }
+                            
+                           
+                          
+                         
+                        
 
                     }
 
