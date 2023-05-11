@@ -221,7 +221,7 @@ public class Regul extends Thread {
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         volt.add(u);
-                        server.writeMessage("volt", String.valueOf(u));
+			server.writeMessage("volt", String.valueOf(u));
                         
                         writeOutput(u);
                         inner.updateState(u);
@@ -279,18 +279,24 @@ public class Regul extends Thread {
                 case PUSH_BALL: {
                     try{
                         fire.set(false);
-                        //fire.set(true);
+			// fire.set(true);
                     } catch (Exception e){
                         break;
                     }
 
                     try {
-                        TimeUnit.MILLISECONDS.sleep(10);
-                    } catch (InterruptedException e) {
+                        TimeUnit.MILLISECONDS.sleep(450);
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+		    try {
+			fire.set(true);
+		    } catch (Exception e) {
+			break;
+		    }
 
-                    modeMon.setMode(ModeMonitor.Mode.BEAM);
+                    modeMon.setMode(ModeMonitor.Mode.BALL);
+		    refGen.setManual(0.0);
                     break;
                 }
 
