@@ -263,6 +263,7 @@ public class Regul extends Thread {
                     if (aligned){
                             modeMon.setMode(ModeMonitor.Mode.BEAM);
                             refGen.setManual(angleRef);
+                            server.writeMessage("BeamAligned", "" + true);
 
                             try{
                                 fire.set(true);
