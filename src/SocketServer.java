@@ -3,6 +3,8 @@ import java.io.*;
 
 public class SocketServer {
 
+	private ModeMonitor modeMonitor;
+
     private ServerSocket server;
     public Socket comSocket;
     private int port;
@@ -14,8 +16,9 @@ public class SocketServer {
 
 
     // Constructor. Input argument = port number, e.g., 55000
-    public SocketServer(int port) {
+    public SocketServer(int port, ModeMonitor modeMonitor) {
 	this.port = port;
+	this.modeMonitor = modeMonitor;
 	try {
 	    server = new ServerSocket(port);
 	} catch (IOException e) {
@@ -44,6 +47,11 @@ public class SocketServer {
 		    tag = SocketProtocol.getTag(inputLine);
 		    value = SocketProtocol.getValue(inputLine);
 		    System.out.println("Message received: " + tag + " " + value);
+			switch (tag){
+				case "ControlMode": {
+					modeMonitor.setMode(ModeMonitor.Mode.valueOf(value));
+				}
+			}
 		}
 	    } catch (Exception e) {
 		System.out.println("SocketServer: Error readline");
@@ -99,7 +107,7 @@ public class SocketServer {
     }
 
     // Example Main. Creates a socketServer and shows how to write to it.
-    public static void main(String[] args) throws Exception {
+    /**public static void main(String[] args) throws Exception {
 	SocketServer socketServer = new SocketServer(Integer.parseInt(args[0]));
 	int i = 0;
 	while (true) {
@@ -110,6 +118,6 @@ public class SocketServer {
 	    } catch (Exception e) {
 	    }
 	}
-    }
+    }*/
 }
 

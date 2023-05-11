@@ -14,7 +14,7 @@ public class Main {
 
         // Initialise Control system parts
         ReferenceGenerator refgen = new ReferenceGenerator(refGenPriority); 
-        SocketServer server = new SocketServer(55000);
+        SocketServer server = new SocketServer(55000, modeMon);
         Regul regul = new Regul(regulPriority, modeMon, server);
         final OpCom opcom = new OpCom(plotterPriority, modeMon); // Must be declared final since it is used in an inner class
 
