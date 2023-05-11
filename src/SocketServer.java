@@ -69,6 +69,7 @@ public class SocketServer {
     // Method for writing to the socket
     public void writeMessage(String tag, String value) {
 	if (out != null) {
+		System.out.println("Message sent: " +tag + value);
 	    out.println(SocketProtocol.create(tag,value));
 	}
     }
