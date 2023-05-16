@@ -9,6 +9,8 @@ public class Regul extends Thread {
     private PID inner = new PID("PIDInner");
     private PID outer = new PID("PIDOuter");
 
+    private int counter;
+
     PIDParameters innerParam = new PIDParameters();
     PIDParameters outerParam = new PIDParameters();
 
@@ -37,6 +39,8 @@ public class Regul extends Thread {
 
     private SocketServer server;
 
+    private int counterTrue;
+
     public Regul(int pri, ModeMonitor modeMon, SocketServer server) {
         priority = pri;
         setPriority(priority);
@@ -64,6 +68,8 @@ public class Regul extends Thread {
         outerParam.integratorOn = false;
 
         setOuterParameters(outerParam);
+
+	counter = 0;
 
 
         try {
@@ -190,7 +196,9 @@ public class Regul extends Thread {
 
                 case START: {
                     refGen.setManual(0.0);
+		    aligned = false;
                     server.writeMessage("BeamAligned", "" + 0);
+		    server.writeMessage("sensor", "" + aligned);
                     modeMon.setMode(ModeMonitor.Mode.BEAM);
                 }
 
@@ -243,21 +251,33 @@ public class Regul extends Thread {
 
                 case ALIGN: {
                     angle = readInput(analogInAngle);
+		  
                    
-                    refGen.setManual(angleRef);
+		    refGen.setManual(angleRef);
                     
 
                     try{
-                        aligned = !sensor.get();
-			
+                        aligned = sensor.get();
+			//server.writeMessage("sensor", "" + !sensor.get());
+			System.out.println(aligned);
+			if(aligned){
+			    counter += 1;
+			}else {
+			    counter = 0;
+			}
                     }catch (Exception e) {
 
                     }
 
                     if(!aligned){
                         angleRef -= 0.005;
-			server.writeMessage("angleRef", "" + angleRef);
-                    }
+			//server.writeMessage("angleRef", "" + angleRef);
+
+                    } else if (counter > 10) {
+			refGen.setManual(angleRef);
+			counter = 0;
+			server.writeMessage("BeamAligned", "true");
+		    }
 
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
@@ -266,26 +286,22 @@ public class Regul extends Thread {
                     }
                     sendDataToOpCom(angleRef, angle, u);
 
-                    try{
+		    /** try{
                         aligned = !sensor.get();
                     }catch (Exception e) {
                         System.out.println("Whoops");
                     }
 
-		    server.writeMessage("Aligned", ""+ aligned);
-
+		    //server.writeMessage("Aligned", ""+ aligned);
+		   
+		   
                     if (aligned){
-                            modeMon.setMode(ModeMonitor.Mode.BEAM);
-                            refGen.setManual(angleRef);
-                            server.writeMessage("BeamAligned", "" + 1);
+			// modeMon.setMode(ModeMonitor.Mode.BEAM);
+			    refGen.setManual(angleRef);
+                            server.writeMessage("BeamAligned","true");
+			    } **/
 
-                            
-                           
-                          
-                         
-                        
-
-                    }
+    
 
                     break;
 
