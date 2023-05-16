@@ -336,7 +336,7 @@ public class OpCom {
 		alignModeButton = new JRadioButton("ALIGN");
 		pushBallModeButton = new JRadioButton("PUSH BALL");
 		weighBallModeButton = new JRadioButton("WEIGH BALL");
-		startModeButton = new JRadioButton("START")
+		startModeButton = new JRadioButton("START");
 		stopButton = new JButton("STOP");
 		// Group the radio buttons.
 		ButtonGroup group = new ButtonGroup();
@@ -402,7 +402,7 @@ public class OpCom {
 		});
 
 		// Add buttons to button panel.
-		buttonPanel.add(startModeButton, BorderLayout.NORTH)
+		buttonPanel.add(startModeButton, BorderLayout.NORTH);
 		buttonPanel.add(offModeButton, BorderLayout.NORTH);
 		buttonPanel.add(beamModeButton, BorderLayout.CENTER);
 		buttonPanel.add(ballModeButton, BorderLayout.SOUTH);
