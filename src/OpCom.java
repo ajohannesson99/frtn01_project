@@ -54,6 +54,7 @@ public class OpCom {
 	private JButton stopButton;
 
 	private JRadioButton weighBallModeButton;
+	private JRadioButton startModeButton;
 
 	private boolean hChanged = false;
 	private boolean isInitialized = false;
@@ -335,6 +336,7 @@ public class OpCom {
 		alignModeButton = new JRadioButton("ALIGN");
 		pushBallModeButton = new JRadioButton("PUSH BALL");
 		weighBallModeButton = new JRadioButton("WEIGH BALL");
+		startModeButton = new JRadioButton("START")
 		stopButton = new JButton("STOP");
 		// Group the radio buttons.
 		ButtonGroup group = new ButtonGroup();
@@ -344,6 +346,7 @@ public class OpCom {
 		group.add(alignModeButton);
 		group.add(pushBallModeButton);
 		group.add(weighBallModeButton);
+		group.add(startModeButton);
 		// Button action listeners.
 		offModeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -391,7 +394,15 @@ public class OpCom {
 			}
 		});
 
+		startModeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modeMon.setMode(ModeMonitor.Mode.START);
+			}
+		});
+
 		// Add buttons to button panel.
+		buttonPanel.add(startModeButton, BorderLayout.NORTH)
 		buttonPanel.add(offModeButton, BorderLayout.NORTH);
 		buttonPanel.add(beamModeButton, BorderLayout.CENTER);
 		buttonPanel.add(ballModeButton, BorderLayout.SOUTH);
@@ -424,6 +435,9 @@ public class OpCom {
 				break;
 			case WEIGH_BALL:
 				weighBallModeButton.setSelected(true);
+				break;
+			case START:
+				startModeButton.setSelected(true);
 				break;
 		}
 
