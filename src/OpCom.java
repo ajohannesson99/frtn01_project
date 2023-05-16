@@ -397,6 +397,7 @@ public class OpCom {
 		buttonPanel.add(ballModeButton, BorderLayout.SOUTH);
 		buttonPanel.add(alignModeButton, BorderLayout.SOUTH);
 		buttonPanel.add(pushBallModeButton, BorderLayout.SOUTH);
+		buttonPanel.add(pushBallModeButton, BorderLayout.SOUTH);
 
 		// Panel for parameter panel and radio buttons
 		somePanel = new JPanel();
