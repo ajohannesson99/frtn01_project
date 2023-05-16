@@ -331,11 +331,12 @@ public class Regul extends Thread {
                     break;
                 }
 
-                case WEIGH_BALL: {
+		    case WEIGH_BALL: {
 
                     y = readInput(analogInPosition);
                     refGen.setManual(1.0);
                     yRef = refGen.getRef();
+		    angle = readInput(analogInAngle);
 
 
 
@@ -354,7 +355,9 @@ public class Regul extends Thread {
                         writeOutput(u);
                         inner.updateState(u);
                     }
-                }
+
+		    break;
+		    }
 
                 default: {
                     System.out.println("Error: Illegal mode.");
