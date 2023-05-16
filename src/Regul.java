@@ -364,10 +364,20 @@ public class Regul extends Thread {
                     sendDataToOpCom(y, yRef, u);
 
                     double mean = meanOfVolt(volt);
+                    int ballSize = 0;
 
-                    //server.writeMessage("BallSize", "" + ballSize);
+                    if(mean < 0.4) {
+                        ballSize = 1;
+                    } else if (mean < 2) {
+                        ballSize = 2;
+                    } else {
+                        ballSize = 3;
+                    }
 
-                    System.out.println(mean);
+                    System.out.println(ballSize);
+                //server.writeMessage("BallSize", "" + ballSize);
+
+
 
                     //Beräknar vilken boll varje loop
                     // Skickar hela tiden
