@@ -53,6 +53,8 @@ public class OpCom {
 	private JRadioButton pushBallModeButton;
 	private JButton stopButton;
 
+	private JRadioButton weighBallModeButton;
+
 	private boolean hChanged = false;
 	private boolean isInitialized = false;
 
@@ -332,6 +334,7 @@ public class OpCom {
 		ballModeButton = new JRadioButton("BALL");
 		alignModeButton = new JRadioButton("ALIGN");
 		pushBallModeButton = new JRadioButton("PUSH BALL");
+		weighBallModeButton = new JRadioButton("WEIGH BALL");
 		stopButton = new JButton("STOP");
 		// Group the radio buttons.
 		ButtonGroup group = new ButtonGroup();
@@ -340,6 +343,7 @@ public class OpCom {
 		group.add(ballModeButton);
 		group.add(alignModeButton);
 		group.add(pushBallModeButton);
+		group.add(weighBallModeButton);
 		// Button action listeners.
 		offModeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -368,6 +372,13 @@ public class OpCom {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				modeMon.setMode(ModeMonitor.Mode.PUSH_BALL);
+			}
+		});
+
+		weighBallModeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modeMon.setMode(ModeMonitor.Mode.WEIGH_BALL);
 			}
 		});
 
