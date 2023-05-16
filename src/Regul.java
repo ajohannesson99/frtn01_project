@@ -334,7 +334,7 @@ public class Regul extends Thread {
 		    case WEIGH_BALL: {
 
                     y = readInput(analogInPosition);
-                    refGen.setManual(1.0);
+                    refGen.setManual(0.5);
                     yRef = refGen.getRef();
 		    angle = readInput(analogInAngle);
 
