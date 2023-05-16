@@ -355,7 +355,7 @@ public class Regul extends Thread {
                         writeOutput(u);
                         inner.updateState(u);
                     }
-
+                sendDataToOpCom(y, yRef, u);
 		    break;
 		    }
 

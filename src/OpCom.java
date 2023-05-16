@@ -416,6 +416,15 @@ public class OpCom {
             case BALL:
                 ballModeButton.setSelected(true);
                 break;
+			case ALIGN:
+				alignModeButton.setSelected(true);
+				break;
+			case PUSH_BALL:
+				pushBallModeButton.setSelected(true);
+				break;
+			case WEIGH_BALL:
+				weighBallModeButton.setSelected(true);
+				break;
 		}
 
 
