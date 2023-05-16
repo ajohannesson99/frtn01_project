@@ -41,6 +41,8 @@ public class Regul extends Thread {
 
     private int counterTrue;
 
+
+
     public Regul(int pri, ModeMonitor modeMon, SocketServer server) {
         priority = pri;
         setPriority(priority);
@@ -70,6 +72,8 @@ public class Regul extends Thread {
         setOuterParameters(outerParam);
 
 	counter = 0;
+
+    volt = new ArrayList<>();
 
 
         try {
@@ -236,7 +240,7 @@ public class Regul extends Thread {
                     
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
-                        volt.add(u);
+
 			
                         
                         writeOutput(u);
@@ -355,7 +359,17 @@ public class Regul extends Thread {
                         writeOutput(u);
                         inner.updateState(u);
                     }
-                sendDataToOpCom(y, yRef, u);
+
+                    sendDataToOpCom(y, yRef, u);
+
+                    double mean = meanOfVolt(volt);
+
+                    //server.writeMessage("BallSize", "" + ballSize);
+
+                    System.out.println(mean);
+
+                    //Beräknar vilken boll varje loop
+                    // Skickar hela tiden
 		    break;
 		    }
 
@@ -402,5 +416,17 @@ public class Regul extends Thread {
             e.printStackTrace();
             return 0.0;
         }
+    }
+
+    private double meanOfVolt (List<Double> volt) {
+        double sum = 0.0;
+        if(!volt.isEmpty()){
+            for(Double v : volt) {
+                sum += v;
+            }
+            return sum / volt.size();
+        }
+        return  0.0;
+
     }
 }
