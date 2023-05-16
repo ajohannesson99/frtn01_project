@@ -202,6 +202,7 @@ public class Regul extends Thread {
                     refGen.setManual(0.0);
 		    aligned = false;
                     server.writeMessage("BeamAligned", "" + 0);
+		    volt = new ArrayList<>();
 		    server.writeMessage("sensor", "" + aligned);
                     modeMon.setMode(ModeMonitor.Mode.BEAM);
                 }
@@ -338,7 +339,7 @@ public class Regul extends Thread {
 		    case WEIGH_BALL: {
 
                     y = readInput(analogInPosition);
-                    refGen.setManual(0.5);
+                    refGen.setManual(2.0);
                     yRef = refGen.getRef();
 		    angle = readInput(analogInAngle);
 
