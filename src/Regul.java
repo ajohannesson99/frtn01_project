@@ -204,11 +204,11 @@ public class Regul extends Thread {
                     position = 0.0;
 		    aligned = false;
 		    counter = 0;
-                    server.writeMessage("BeamAligned", "" + 0);
+                    server.writeMessage("BeamAligned", "false");
 		    volt = new ArrayList<>();
 		    server.writeMessage("sensor", "" + aligned);
                    
-		    server.writeMessage("BallPosition", "" + 0);
+		    server.writeMessage("BallPosition", "" + 11);
             innerParam.K = 2.4;
             inner.setParameters(innerParam);
 	     modeMon.setMode(ModeMonitor.Mode.BEAM);
