@@ -235,6 +235,7 @@ public class Regul extends Thread {
          
                    
                     y = readInput(analogInPosition);
+		    System.out.println(y);
                     yRef = refGen.getRef();
                     double phiff = refGen.getPhiff();
                     
@@ -376,7 +377,7 @@ public class Regul extends Thread {
                     double mean = meanOfVolt(volt);
                     int ballSize = 0;
 
-                    if(mean < 0.4) {
+                    if(mean < 0.35) {
                         ballSize = 1;
                     } else if (mean < 1) {
                         ballSize = 2;
