@@ -404,6 +404,49 @@ public class Regul extends Thread {
 
                 }
 
+                case MIDDLE: {
+                    y = readInput(analogInPosition);
+
+                    server.writeMessage("BallPosition" , "" + y);
+
+                    if(server.regulator == 0){
+                        angle = readInput(analogInAngle);
+                        angleRef = server.angleRef;
+                        refGen.setManual(angleRef);
+
+                        synchronized (inner) {
+                            u = limit(inner.calculateOutput(angle, angleRef));
+                            writeOutput(u);
+                            inner.updateState(u);
+                        }
+
+                        sendDataToOpCom(angleRef, angle, u);
+                        break;
+
+                    } else if (server.regulator == 1) {
+                        yRef = server.pos_ref;
+
+                        synchronized (outer) {
+                            angleRef = limit(outer.calculateOutput(y, yRef));
+                            outer.updateState(angleRef);
+                        }
+
+                        angle = readInput(analogInAngle);
+
+                        synchronized (inner) {
+                            u = limit(inner.calculateOutput(angle, angleRef));
+                            writeOutput(u);
+                            inner.updateState(u);
+                        }
+
+                        sendDataToOpCom(y, yRef, u);
+                        break;
+
+                    } else {
+                        break;
+                    }
+                }
+
                 default: {
                     System.out.println("Error: Illegal mode.");
                     break;

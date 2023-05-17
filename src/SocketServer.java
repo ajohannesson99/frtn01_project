@@ -15,6 +15,9 @@ public class SocketServer {
     public ConnectionThread connThread;
 
 	public double angleRef = 0.0;
+	public double pos_ref = 0.0;
+
+	public int regulator = 0;
 
 
     // Constructor. Input argument = port number, e.g., 55000
@@ -58,6 +61,19 @@ public class SocketServer {
 					angleRef = Double.valueOf(value);
 					break;
 				}
+
+				case "Regulator": {
+					// 0 = Bara inner
+					// 1 = Inner och Outer
+					regulator = Integer.valueOf(value);
+					break;
+				}
+
+				case "Ball_Ref": {
+					pos_ref = Double.valueOf(value);
+					break;
+				}
+
 				default:
 					break;
 			}
