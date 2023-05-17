@@ -388,6 +388,21 @@ public class Regul extends Thread {
 		    break;
 		    }
 
+                case BIG: {
+                    angle = readInput(analogInAngle);
+                    angleRef = server.angleRef;
+
+                    synchronized (inner){
+                        u = limit(inner.calculateOutput(angle, angleRef));
+                        writeOutput(u);
+                        inner.updateState(u);
+                    }
+
+                    sendDataToOpCom(angleRef, angle, u);
+                    break;
+
+                }
+
                 default: {
                     System.out.println("Error: Illegal mode.");
                     break;

@@ -14,6 +14,8 @@ public class SocketServer {
     public ReaderThread readerThread;
     public ConnectionThread connThread;
 
+	public double angleRef = 0.0;
+
 
     // Constructor. Input argument = port number, e.g., 55000
     public SocketServer(int port, ModeMonitor modeMonitor) {
@@ -50,7 +52,14 @@ public class SocketServer {
 			switch (tag){
 				case "ControlMode": {
 					modeMonitor.setMode(ModeMonitor.Mode.valueOf(value));
+					break;
 				}
+				case "AngleBeam": {
+					angleRef = Double.valueOf(value);
+					break;
+				}
+				default:
+					break;
 			}
 		}
 	    } catch (Exception e) {
