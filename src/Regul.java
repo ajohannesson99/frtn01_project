@@ -407,7 +407,8 @@ public class Regul extends Thread {
                 case MIDDLE: {
                     y = readInput(analogInPosition);
 
-                    server.writeMessage("BallPosition" , "" + y);
+
+                    server.writeMessage("BallPosition" , "" + ((int) y));
 
                     if(server.regulator == 0){
                         angle = readInput(analogInAngle);
