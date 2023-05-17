@@ -199,6 +199,7 @@ public class Regul extends Thread {
                 }
 
                 case START: {
+                    angleRef = 0.0;
                     refGen.setManual(0.0);
                     position = 0.0;
 		    aligned = false;
