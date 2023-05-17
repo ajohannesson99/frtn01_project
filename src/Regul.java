@@ -200,6 +200,7 @@ public class Regul extends Thread {
 
                 case START: {
                     refGen.setManual(0.0);
+                    position = 0.0;
 		    aligned = false;
 		    counter = 0;
                     server.writeMessage("BeamAligned", "" + 0);
