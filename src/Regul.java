@@ -391,6 +391,7 @@ public class Regul extends Thread {
                 case BIG: {
                     angle = readInput(analogInAngle);
                     angleRef = server.angleRef;
+                    refGen.setManual(angleRef);
 
                     synchronized (inner){
                         u = limit(inner.calculateOutput(angle, angleRef));
