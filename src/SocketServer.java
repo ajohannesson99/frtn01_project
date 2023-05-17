@@ -17,6 +17,8 @@ public class SocketServer {
 	public double angleRef = 0.0;
 	public double pos_ref = 0.0;
 
+	public double K_inner = 0.0;
+
 	public int regulator = 0;
 
 
@@ -72,6 +74,10 @@ public class SocketServer {
 				case "Ball_Ref": {
 					pos_ref = Double.valueOf(value);
 					break;
+				}
+
+				case "K_inner" : {
+					K_inner = Double.valueOf(value);
 				}
 
 				default:

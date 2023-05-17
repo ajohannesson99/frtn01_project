@@ -207,6 +207,8 @@ public class Regul extends Thread {
 		    server.writeMessage("sensor", "" + aligned);
                     modeMon.setMode(ModeMonitor.Mode.BEAM);
 		    server.writeMessage("BallPosition", "" + 0);
+            innerParam.K = server.K_inner;
+            inner.setParameters(innerParam);
                 }
 
                 case BEAM: {
@@ -413,6 +415,8 @@ public class Regul extends Thread {
 			}
 
                     if(server.regulator == 0){
+                        innerParam.K = server.K_inner;
+                        inner.setParameters(innerParam);
                         angle = readInput(analogInAngle);
                         angleRef = server.angleRef;
                         refGen.setManual(angleRef);
