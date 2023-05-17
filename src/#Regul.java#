@@ -388,6 +388,8 @@ public class Regul extends Thread {
 		    break;
 		    }
 
+		    
+
                 default: {
                     System.out.println("Error: Illegal mode.");
                     break;
