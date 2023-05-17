@@ -206,6 +206,7 @@ public class Regul extends Thread {
 		    volt = new ArrayList<>();
 		    server.writeMessage("sensor", "" + aligned);
                     modeMon.setMode(ModeMonitor.Mode.BEAM);
+		    server.writeMessage("BallPosition", "" + 0);
                 }
 
                 case BEAM: {
@@ -407,9 +408,9 @@ public class Regul extends Thread {
                 case MIDDLE: {
                     y = readInput(analogInPosition);
 
-                    if(Math.abs(y) >= 4) {
+                    if(Math.abs(y) >= 3 && Math.abs(y) <= 6) {
                         server.writeMessage("BallPosition" , "" + ((int) y));
-                    }
+			}
 
                     if(server.regulator == 0){
                         angle = readInput(analogInAngle);
