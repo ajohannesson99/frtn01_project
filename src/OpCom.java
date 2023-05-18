@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import graphics.ProgressBox;
 import graphics.ProgressSquare;
 import se.lth.control.*;
 import se.lth.control.plot.*;
@@ -61,7 +62,7 @@ import se.lth.control.plot.*;
 			//To show active size on the ball
 			private JLabel small, med, big;
 
-			private ProgressSquare p1, p2, p3;
+			private ProgressBox p1, p2, p3, p4, p5, p6, p7;
 
 			private boolean hChanged = false;
 			private boolean isInitialized = false;
@@ -463,7 +464,7 @@ import se.lth.control.plot.*;
 				rightPanel = new BoxPanel(BoxPanel.VERTICAL);
 
 				sizePanel = new JPanel();
-				sizePanel.setLayout(new GridLayout(3,1));
+				sizePanel.setLayout(new GridLayout(1,3));
 
 				small = new JLabel("  Small");
 				med = new JLabel("  Medium");
@@ -486,15 +487,30 @@ import se.lth.control.plot.*;
 				JPanel activePanel = new JPanel();
 				activePanel.setLayout(new GridLayout(3,1));
 
-				p1 = new ProgressSquare();
-				p2 = new ProgressSquare();
-				p3 = new ProgressSquare();
+				p1 = new ProgressBox("start");
+				p2 = new ProgressBox("fire");
+				p3 = new ProgressBox("weigh");
 
 				activePanel.add(p1);
 				activePanel.add(p2);
 				activePanel.add(p3);
 
+				JPanel activePanel2 = new JPanel();
+				activePanel2.setLayout(new GridLayout(1,3));
+
+				p4 = new ProgressBox("basket");
+				p5 = new ProgressBox("throw");
+				p6 = new ProgressBox("drop");
+
+				activePanel2.add(p4);
+				activePanel2.add(p5);
+				activePanel2.add(p6);
+
+				p7 = new ProgressBox("finish");
+
 				rightPanel.add(activePanel);
+				rightPanel.add(activePanel2);
+				rightPanel.add(p7);
 
 
 				// Create panel for the entire GUI.
