@@ -22,8 +22,8 @@ public class OpCom {
 	private JFrame frame;
 
 	// Declarartion of panels.
-	private BoxPanel guiPanel, plotterPanel, innerParPanel, outerParPanel, parPanel;
-	private JPanel innerParLabelPanel, innerParFieldPanel, outerParLabelPanel, outerParFieldPanel, buttonPanel, somePanel, leftPanel;
+	private BoxPanel guiPanel, plotterPanel, innerParPanel, outerParPanel, parPanel, rightPanel;
+	private JPanel innerParLabelPanel, innerParFieldPanel, outerParLabelPanel, outerParFieldPanel, buttonPanel, somePanel, leftPanel, sizePanel;
 	private PlotterPanel measPanel, ctrlPanel;
 
 	// Declaration of components.
@@ -448,11 +448,35 @@ public class OpCom {
 		leftPanel.add(somePanel, BorderLayout.CENTER);
 		leftPanel.add(stopButton, BorderLayout.SOUTH);
 
+
+
+
+
+
+		rightPanel = new BoxPanel(BoxPanel.VERTICAL);
+
+		sizePanel = new JPanel();
+		sizePanel.setLayout(new GridLayout(3,1));
+
+		JLabel small = new JLabel("Small");
+		JLabel med = new JLabel("Medium");
+		JLabel big = new JLabel("Big");
+
+		sizePanel.add(small);
+		sizePanel.add(med);
+		sizePanel.add(big);
+
+		rightPanel.add(sizePanel);
+
+
 		// Create panel for the entire GUI.
 		guiPanel = new BoxPanel(BoxPanel.HORIZONTAL);
 		guiPanel.add(leftPanel);
 		guiPanel.addGlue();
 		guiPanel.add(plotterPanel);
+		guiPanel.addFixed(10);
+		guiPanel.add(rightPanel);
+		guiPanel.addFixed(10);
 
 		// WindowListener that exits the system if the main window is closed.
 		frame.addWindowListener(new WindowAdapter() {
