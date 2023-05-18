@@ -414,7 +414,7 @@ public class Regul extends Thread {
 
                 }
 
-                case MIDDLE: {
+                case MEDIUM: {
                     y = readInput(analogInPosition);
 
                     /*if(Math.abs(y) >= 0 && Math.abs(y) <= 7) {
