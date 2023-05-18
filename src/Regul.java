@@ -182,6 +182,9 @@ public class Regul extends Thread {
 
         while (shouldRun) {
             /** Written by you */
+            y = readInput(analogInPosition);
+
+            server.writeMessage("BallPosition", "" + ((int) y));
 
             //position = readInput(analogInPosition);
             //angle = readInput(analogInAngle);
@@ -414,9 +417,9 @@ public class Regul extends Thread {
                 case MIDDLE: {
                     y = readInput(analogInPosition);
 
-                    if(Math.abs(y) >= 0 && Math.abs(y) <= 7) {
+                    /*if(Math.abs(y) >= 0 && Math.abs(y) <= 7) {
                         server.writeMessage("BallPosition" , "" + ((int) y));
-			}
+			}*/
 
                     if(server.regulator == 0){
                         innerParam.K = server.K_inner;
