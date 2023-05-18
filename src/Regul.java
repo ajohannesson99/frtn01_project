@@ -207,7 +207,7 @@ public class Regul extends Thread {
                     position = 0.0;
 		    aligned = false;
 		    counter = 0;
-                    server.writeMessage("BeamAligned", "false");
+                    server.writeMessage("BeamAligned", "" + 0);
 		    volt = new ArrayList<>();
 		    server.writeMessage("sensor", "" + aligned);
                    
@@ -295,7 +295,7 @@ public class Regul extends Thread {
 		}else if (counter > 10) {
 			refGen.setManual(angleRef);
 			//counter = 0;
-			server.writeMessage("BeamAligned", "true");
+			server.writeMessage("BeamAligned", "" + 1);
 			}
 
                     synchronized (inner) {
