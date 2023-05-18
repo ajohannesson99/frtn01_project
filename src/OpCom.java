@@ -56,6 +56,9 @@ public class OpCom {
 	private JRadioButton weighBallModeButton;
 	private JRadioButton startModeButton;
 
+	//To show active size on the ball
+	private JLabel small, med, big;
+
 	private boolean hChanged = false;
 	private boolean isInitialized = false;
 
@@ -458,9 +461,17 @@ public class OpCom {
 		sizePanel = new JPanel();
 		sizePanel.setLayout(new GridLayout(3,1));
 
-		JLabel small = new JLabel("Small");
-		JLabel med = new JLabel("Medium");
-		JLabel big = new JLabel("Big");
+		small = new JLabel("  Small");
+		med = new JLabel("  Medium");
+		big = new JLabel("  Big");
+
+		small.setBackground(Color.RED);
+		med.setBackground(Color.RED);
+		big.setBackground(Color.RED);
+
+		small.setOpaque(true);
+		med.setOpaque(true);
+		big.setOpaque(true);
 
 		sizePanel.add(small);
 		sizePanel.add(med);
@@ -520,6 +531,37 @@ public class OpCom {
 			measPanel.putData(t, yRef, y);
 		} else {
 			System.out.println("Note: GUI not yet initialized. Ignoring call to putMeasurementData().");
+		}
+	}
+
+	public synchronized void changeActiveSize(int size){
+		if(isInitialized){
+			switch (size){
+				case 1:
+					small.setBackground(Color.GREEN);
+					med.setBackground(Color.RED);
+					big.setBackground(Color.RED);
+					break;
+				case 2:
+					small.setBackground(Color.RED);
+					med.setBackground(Color.GREEN);
+					big.setBackground(Color.RED);
+					break;
+				case 3:
+					small.setBackground(Color.RED);
+					med.setBackground(Color.RED);
+					big.setBackground(Color.GREEN);
+					break;
+				default:
+					small.setBackground(Color.RED);
+					med.setBackground(Color.RED);
+					big.setBackground(Color.RED);
+					break;
+
+			}
+
+		} else {
+			System.out.println("Note: GUI not yet initialized. Ignoring call to changeActiveSize().");
 		}
 	}
 }

@@ -390,6 +390,7 @@ public class Regul extends Thread {
 
                     System.out.println(ballSize);
 		    server.writeMessage("BallSize", "" + ballSize);
+            opCom.changeActiveSize(ballSize);
 
 
 
