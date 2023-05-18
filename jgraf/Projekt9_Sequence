@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <GCDocument color="-1" dimTicks="25" dpwsInterface="" dpwsPort="-1" height="925" horizontalScrollBar="1" modifiable="1" name="J1" saveVersion="8" scale="0.78" simulationMode="0" socketHost="localhost" socketIsServer="0" socketPort="55000" socketSendMode="Changed" threadSpeed="40" tokenLuminance="0" verticalScrollBar="1" viewPositionX="-709" viewPositionY="0" width="1775" x="0" y="0">
-  <GCInitialStep actionBlockVisible="1" actionText="S ControlMode = &quot;START&quot;;&#10;S AngleBeam = 0;&#10;S Ball_Ref = 0;&#10;S Regulator = 2;&#10;S K_inner = &quot;2.40&quot;;&#10;&#10;" fileName="" height="70" id="038cacfe-8772-40e4-9970-f252944defaa" name="Set_Beam" useIcon="0" width="200" x="160" y="45"/>
+  <GCInitialStep actionBlockVisible="1" actionText="S ControlMode = &quot;START&quot;;&#10;S AngleBeam = 0;&#10;S Ball_Ref = 0;&#10;S Regulator = 2;&#10;S K_inner = &quot;2.40&quot;;&#10;S Fire = 1;&#10;&#10;" fileName="" height="70" id="038cacfe-8772-40e4-9970-f252944defaa" name="Set_Beam" useIcon="0" width="200" x="160" y="45"/>
   <GCTransition actionText="Set_Beam.s == 4" conditionVisible="1" height="25" id="ccaf3b24-8f23-40e8-b625-e2914532de26" width="30" x="245" y="130"/>
   <GCStep actionBlockVisible="1" actionText="S Fire = 0;&#10;" fileName="" height="70" id="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" name="Fire_Block" useIcon="0" width="200" x="160" y="275"/>
-  <GCTransition actionText="Fire_Block.t == 11 &amp; POS &gt;= -10 &amp; POS &lt;= -9" conditionVisible="1" height="25" id="75c0fd44-075f-4139-9c7b-8391b16c37f6" width="30" x="225" y="380"/>
+  <GCTransition actionText="Fire_Block.t == 11 &amp; POS &gt;= -10 &amp; POS &lt;= -8" conditionVisible="1" height="25" id="75c0fd44-075f-4139-9c7b-8391b16c37f6" width="30" x="225" y="380"/>
   <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;BALL&quot;;&#10;S Fire = 1;" fileName="" height="70" id="8fbea1ba-aff8-4d90-a4df-3bc46770aea9" name="Catch_Ball" useIcon="0" width="200" x="160" y="445"/>
   <GCTransition actionText="BallSize == 1" conditionVisible="1" height="25" id="92c2b592-a81c-4d30-874b-a461a54fc46a" width="30" x="-235" y="880"/>
   <GCTransition actionText="BallSize == 2" conditionVisible="1" height="25" id="2e57f9d7-bac8-4288-bd4e-a724c5e6f402" width="30" x="175" y="880"/>
   <GCTransition actionText="BallSize == 3" conditionVisible="1" height="25" id="86433e85-7b3a-471f-b99d-d57addb04d6a" width="30" x="535" y="880"/>
   <GCStep actionBlockVisible="1" actionText="S Regulator = 0;&#10;S AngleBeam = 7;&#10;S ControlMode = &quot;MIDDLE&quot;;" fileName="" height="70" id="5013d4c3-f64d-44f2-85c8-767f1ff71fe2" name="Small_Ball" useIcon="0" width="200" x="-250" y="935"/>
-  <GCStep actionBlockVisible="1" actionText="S Regulator = 1;&#10;S Ball_Ref = 5;&#10;S ControlMode = &quot;MIDDLE&quot;;&#10;&#10;" fileName="" height="70" id="acbcc241-7041-4a63-b920-f19c42089148" name="Medium_Ball" useIcon="0" width="200" x="160" y="925"/>
+  <GCStep actionBlockVisible="1" actionText="S Regulator = 1;&#10;S Ball_Ref = -5;&#10;S ControlMode = &quot;MIDDLE&quot;;&#10;&#10;" fileName="" height="70" id="acbcc241-7041-4a63-b920-f19c42089148" name="Medium_Ball" useIcon="0" width="200" x="160" y="925"/>
   <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;BIG&quot;;&#10;S AngleBeam = -3;" fileName="" height="70" id="2b75ed28-2589-433d-badf-4619349de543" name="Large_Ball" useIcon="0" width="200" x="520" y="925"/>
   <SocketIntOut height="60" identifier="" name="SizeOut" procelmode="0" sendMode="Inherit" value="1" width="96" x="-90" y="50"/>
   <SocketIntOut height="60" identifier="" name="AngleBeam" procelmode="0" sendMode="Inherit" value="120" width="96" x="-200" y="50"/>
@@ -20,27 +20,27 @@
   <GCStep actionBlockVisible="1" actionText="S Regulator = 0;&#10;S K_inner = &quot;3.4&quot;;&#10;S AngleBeam = -8;" fileName="" height="70" id="e73d005b-1dfb-4296-bda5-7b77ddb93e17" name="Medium_Angle_Adjust" useIcon="0" width="200" x="160" y="1135"/>
   <GCTransition actionText="Small_Throw.t &gt; 20" conditionVisible="1" height="25" id="618bf8e3-2439-471b-9370-95501ce479e0" width="30" x="-235" y="1310"/>
   <GCTransition actionText="BallPosition &gt;= 2" conditionVisible="1" height="25" id="e11c82f6-f254-4d03-ad6c-7b814939156d" width="30" x="175" y="1350"/>
-  <SocketIntIn height="60" identifier="" name="BallPosition" value="0" width="80" x="-330" y="150"/>
+  <SocketIntIn height="60" identifier="" name="BallPosition" value="11" width="80" x="-330" y="150"/>
   <GCStep actionBlockVisible="1" actionText="S AngleBeam = 7;" fileName="" height="70" id="537ccac7-677a-4ee7-a0cb-dcf03be4558f" name="Medium_Throw" useIcon="0" width="200" x="160" y="1415"/>
   <GCTransition actionText="Medium_Throw.t &gt; 200" conditionVisible="1" height="25" id="440c3b49-fdd6-40a8-9412-8e18faa866e0" width="30" x="615" y="1510"/>
-  <SocketIntIn height="60" identifier="" name="BallSize" value="0" width="80" x="-460" y="150"/>
+  <SocketIntIn height="60" identifier="" name="BallSize" value="2" width="80" x="-460" y="150"/>
   <SocketBooleanOut height="60" identifier="" name="PushBall" procelmode="0" sendMode="Inherit" value="1" width="96" x="-450" y="50"/>
-  <SocketStringIn height="60" identifier="volt" name="volt" value="-0.5493793811279548" width="80" x="-190" y="150"/>
+  <SocketStringIn height="60" identifier="volt" name="volt" value="" width="80" x="-190" y="150"/>
   <DigitalOut channel="0" height="60" name="Fire" value="0" width="80" x="-460" y="380"/>
   <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;ALIGN&quot;;" fileName="" height="70" id="0a7d57e2-0606-4a3f-acc0-0538c7abcb0f" name="" useIcon="0" width="200" x="160" y="165"/>
   <GCTransition actionText="BeamAligned == &quot;true&quot;" conditionVisible="1" height="25" id="4f700b9b-7524-4ddd-aadc-d90107ebe322" width="30" x="245" y="240"/>
-  <SocketStringOut height="60" identifier="" name="ControlMode" procelmode="0" sendMode="Inherit" value="BALL" width="96" x="-320" y="50"/>
+  <SocketStringOut height="60" identifier="" name="ControlMode" procelmode="0" sendMode="Inherit" value="ALIGN" width="96" x="-320" y="50"/>
   <SocketBooleanIn height="60" identifier="" name="BALL_MIDDLE" value="0" width="80" x="-330" y="260"/>
   <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;WEIGH_BALL&quot;;" fileName="" height="70" id="9117243a-081d-4d18-be76-abf6c48f0d97" name="WeighBall" useIcon="0" width="200" x="160" y="575"/>
   <SocketStringOut height="60" identifier="" name="Parameters" procelmode="0" sendMode="Inherit" value="STANDARD" width="96" x="-330" y="370"/>
-  <SocketIntOut height="60" identifier="" name="Ball_Ref" procelmode="0" sendMode="Inherit" value="" width="96" x="-190" y="380"/>
-  <SocketStringIn height="60" identifier="" name="BeamAligned" value="" width="80" x="-180" y="260"/>
+  <SocketIntOut height="60" identifier="" name="Ball_Ref" procelmode="0" sendMode="Inherit" value="0" width="96" x="-190" y="380"/>
+  <SocketStringIn height="60" identifier="" name="BeamAligned" value="true" width="80" x="-180" y="260"/>
   <GCTransition actionText="Catch_Ball.s == 4" conditionVisible="1" height="25" id="75ca6b00-21a3-4687-87cb-da42c298e9a4" width="30" x="175" y="530"/>
   <GCTransition actionText="WeighBall.s == 15" conditionVisible="1" height="25" id="b270ca53-a761-415b-b018-d32a608f7608" width="30" x="165" y="680"/>
   <GCStep actionBlockVisible="0" actionText=";" fileName="" height="70" id="cf1167c2-3a09-4ace-a1cb-229ecb7955d8" name="" useIcon="0" width="60" x="150" y="715"/>
-  <AnalogIn channel="1" cyclic="1" height="60" name="POS" value="0.0" width="80" x="-460" y="520"/>
-  <SocketIntOut height="60" identifier="" name="Regulator" procelmode="0" sendMode="Inherit" value="" width="96" x="-310" y="520"/>
-  <SocketStringOut height="60" identifier="" name="K_inner" procelmode="0" sendMode="Inherit" value="" width="96" x="-140" y="520"/>
+  <AnalogIn channel="1" cyclic="1" height="60" name="POS" value="-8.519" width="80" x="-460" y="520"/>
+  <SocketIntOut height="60" identifier="" name="Regulator" procelmode="0" sendMode="Inherit" value="2" width="96" x="-310" y="520"/>
+  <SocketStringOut height="60" identifier="" name="K_inner" procelmode="0" sendMode="Inherit" value="2.40" width="96" x="-140" y="520"/>
   <GCLink fromObject="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" manAdj="0" toObject="75c0fd44-075f-4139-9c7b-8391b16c37f6">
     <Stroke x="190" y="346"/>
     <Stroke x="190" y="356"/>
