@@ -71,12 +71,12 @@ public class SocketServer {
 					break;
 				}
 
-				case "Ball_Ref": {
+				case "BallRef": {
 					pos_ref = Double.valueOf(value);
 					break;
 				}
 
-				case "K_inner" : {
+				case "KInner" : {
 					K_inner = Double.valueOf(value);
 				}
 
