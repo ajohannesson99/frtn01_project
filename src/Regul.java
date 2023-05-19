@@ -211,6 +211,11 @@ public class Regul extends Thread {
                     position = 0.0;
 		    aligned = false;
 		    counter = 0;
+            try {
+                fire.set(true);
+            }catch (Exception e){
+                break;
+            }
                     server.writeMessage("BeamAligned", "" + 0);
 		    volt = new ArrayList<>();
 		    server.writeMessage("sensor", "" + aligned);
@@ -334,6 +339,11 @@ public class Regul extends Thread {
                 }
 
                 case PUSH_BALL: {
+
+                    opCom.setProgressStatus(-1);
+
+                    angle = readInput(analogInAngle);
+
                     try{
                         fire.set(false);
 			// fire.set(true);
@@ -341,19 +351,16 @@ public class Regul extends Thread {
                         break;
                     }
 
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(450);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    synchronized (inner) {
+                        u = limit(inner.calculateOutput(angle, angleRef));
+                        writeOutput(u);
+                        inner.updateState(u);
                     }
-		    try {
-			fire.set(true);
-		    } catch (Exception e) {
-			break;
-		    }
+                    sendDataToOpCom(angleRef, angle, u);
 
-                    modeMon.setMode(ModeMonitor.Mode.BALL);
-		    refGen.setManual(0.0);
+
+
+
                     break;
                 }
 
