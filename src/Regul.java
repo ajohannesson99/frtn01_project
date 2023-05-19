@@ -76,7 +76,7 @@ public class Regul extends Thread {
     volt = new ArrayList<>();
 
 
-        /*try {
+       try {
             analogInAngle = new AnalogIn(0);
             analogInPosition = new AnalogIn(1);
             analogInRef = new AnalogIn(2);
@@ -103,7 +103,7 @@ public class Regul extends Thread {
             ref = analogInRef.get();
         } catch (Exception e){
             System.out.println(e);
-        }*/
+        }
 
 
 
