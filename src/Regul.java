@@ -76,7 +76,7 @@ public class Regul extends Thread {
     volt = new ArrayList<>();
 
 
-        try {
+       try {
             analogInAngle = new AnalogIn(0);
             analogInPosition = new AnalogIn(1);
             analogInRef = new AnalogIn(2);
@@ -178,6 +178,8 @@ public class Regul extends Thread {
         double angleRef = 0.0;
         double yRef, y, u;
 	boolean aligned = false;
+        int ballSize = 0;
+
 
 
         while (shouldRun) {
@@ -197,11 +199,13 @@ public class Regul extends Thread {
                     y = 0;
                     u = 0;
                     sendDataToOpCom(yRef, y, u);
+                    opCom.setProgressStatus(0);
                     writeOutput(u);
                     break;
                 }
 
                 case START: {
+                    opCom.setProgressStatus(-1);
                     angleRef = 0.0;
                     refGen.setManual(0.0);
                     position = 0.0;
@@ -214,6 +218,7 @@ public class Regul extends Thread {
 		    server.writeMessage("BallPosition", "" + 11);
             innerParam.K = 2.4;
             inner.setParameters(innerParam);
+         opCom.setProgressStatus(0);
 	     modeMon.setMode(ModeMonitor.Mode.BEAM);
                 }
 
@@ -298,6 +303,8 @@ public class Regul extends Thread {
 			server.writeMessage("BeamAligned", "" + 1);
 			}
 
+                    opCom.setProgressStatus(-1);
+
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         writeOutput(u);
@@ -378,7 +385,7 @@ public class Regul extends Thread {
                     sendDataToOpCom(y, yRef, u);
 
                     double mean = meanOfVolt(volt);
-                    int ballSize = 0;
+
 
                     if(mean < 0.35) {
                         ballSize = 1;
@@ -390,6 +397,8 @@ public class Regul extends Thread {
 
                     System.out.println(ballSize);
 		    server.writeMessage("BallSize", "" + ballSize);
+            opCom.changeActiveSize(ballSize);
+            opCom.setProgressStatus(ballSize);
 
 
 
@@ -410,6 +419,7 @@ public class Regul extends Thread {
                     }
 
                     sendDataToOpCom(angleRef, angle, u);
+                    opCom.setProgressStatus(ballSize);
                     break;
 
                 }
@@ -435,6 +445,7 @@ public class Regul extends Thread {
                         }
 
                         sendDataToOpCom(angleRef, angle, u);
+                        opCom.setProgressStatus(ballSize);
                         break;
 
                     } else if (server.regulator == 1) {
@@ -454,6 +465,7 @@ public class Regul extends Thread {
                         }
 
                         sendDataToOpCom(y, yRef, u);
+                        opCom.setProgressStatus(ballSize);
                         break;
 
                     } else {
