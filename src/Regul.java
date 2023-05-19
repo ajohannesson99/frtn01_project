@@ -223,6 +223,7 @@ public class Regul extends Thread {
 		    server.writeMessage("BallPosition", "" + 11);
             innerParam.K = 2.4;
             inner.setParameters(innerParam);
+            opCom.changeActiveSize(-1);
          opCom.setProgressStatus(0);
 	     modeMon.setMode(ModeMonitor.Mode.BEAM);
                 }
@@ -404,7 +405,7 @@ public class Regul extends Thread {
 
                     System.out.println(ballSize);
 		    server.writeMessage("BallSize", "" + ballSize);
-            opCom.changeActiveSize(ballSize);
+
             opCom.setProgressStatus(ballSize);
 
 
@@ -415,6 +416,7 @@ public class Regul extends Thread {
 		    }
 
                 case BIG: {
+                    opCom.changeActiveSize(ballSize);
                     angle = readInput(analogInAngle);
                     angleRef = server.angleRef;
                     refGen.setManual(angleRef);
@@ -432,6 +434,7 @@ public class Regul extends Thread {
                 }
 
                 case MEDIUM: {
+                    opCom.changeActiveSize(ballSize);
                     y = readInput(analogInPosition);
 
                     /*if(Math.abs(y) >= 0 && Math.abs(y) <= 7) {
