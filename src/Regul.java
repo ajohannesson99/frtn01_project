@@ -395,7 +395,7 @@ public class Regul extends Thread {
                     double mean = meanOfVolt(volt);
 
 
-                    if(mean < 0.35) {
+                    if(mean < 0.33) {
                         ballSize = 1;
                     } else if (mean < 1) {
                         ballSize = 2;
