@@ -607,27 +607,16 @@ import se.lth.control.plot.*;
 			switch (mode) {
 				case START: {
 
-					//"START"
-					if(ball == 0) {
-						startState.activate();
-						alignState.deactivate();
-						fireState.deactivate();
-						weighState.deactivate();
-						smallBallState.deactivate();
-						medBallState.deactivate();
-						bigBallState.deactivate();
-						finishState.deactivate();
-						//"FINISH"
-					} else if (ball == -1) {
-						startState.deactivate();
-						alignState.deactivate();
-						fireState.deactivate();
-						weighState.deactivate();
-						smallBallState.deactivate();
-						medBallState.deactivate();
-						bigBallState.deactivate();
-						finishState.activate();
-					}
+					startState.activate();
+					alignState.deactivate();
+					fireState.deactivate();
+					weighState.deactivate();
+					smallBallState.deactivate();
+					medBallState.deactivate();
+					bigBallState.deactivate();
+					finishState.deactivate();
+
+
 					break;
 				}
 
@@ -697,7 +686,19 @@ import se.lth.control.plot.*;
 					medBallState.deactivate();
 					bigBallState.activate();
 					finishState.deactivate();
+					break;
 
+				}
+				case FINISH: {
+					startState.deactivate();
+					alignState.deactivate();
+					fireState.deactivate();
+					weighState.deactivate();
+					smallBallState.deactivate();
+					medBallState.deactivate();
+					bigBallState.deactivate();
+					finishState.activate();
+					break;
 				}
 
 				default:

@@ -483,6 +483,16 @@ public class Regul extends Thread {
                     }
                 }
 
+                case FINISH: {
+                    opCom.setProgressStatus(-1);
+                    yRef = 0;
+                    y = 0;
+                    u = 0;
+                    sendDataToOpCom(yRef, y, u);
+                    writeOutput(u);
+                    break;
+                }
+
                 default: {
                     System.out.println("Error: Illegal mode.");
                     break;
