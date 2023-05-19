@@ -666,7 +666,7 @@ import se.lth.control.plot.*;
 					break;
 				}
 
-				case MIDDLE: {
+				case MEDIUM: {
 					if(ball == 1) {
 						startState.deactivate();
 						alignState.deactivate();
