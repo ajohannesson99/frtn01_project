@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import graphics.ProgressBox;
-import graphics.ProgressSquare;
 import se.lth.control.*;
 import se.lth.control.plot.*;
 
@@ -62,7 +61,7 @@ import se.lth.control.plot.*;
 			//To show active size on the ball
 			private JLabel small, med, big;
 
-			private ProgressBox p1, p2, p3, p4, p5, p6, p7;
+			private ProgressBox startState, alignState, fireState, weighState, smallBallState, medBallState, bigBallState, finishState;
 
 			private boolean hChanged = false;
 			private boolean isInitialized = false;
@@ -487,30 +486,32 @@ import se.lth.control.plot.*;
 				JPanel activePanel = new JPanel();
 				activePanel.setLayout(new GridLayout(3,1));
 
-				p1 = new ProgressBox("start");
-				p2 = new ProgressBox("fire");
-				p3 = new ProgressBox("weigh");
+				startState = new ProgressBox("start");
+				alignState = new ProgressBox("align");
+				fireState = new ProgressBox("fire");
+				weighState = new ProgressBox("weigh");
 
-				activePanel.add(p1);
-				activePanel.add(p2);
-				activePanel.add(p3);
+				activePanel.add(startState);
+				activePanel.add(alignState);
+				activePanel.add(fireState);
+				activePanel.add(weighState);
 
 				JPanel activePanel2 = new JPanel();
 				activePanel2.setLayout(new GridLayout(1,3));
 
-				p4 = new ProgressBox("basket");
-				p5 = new ProgressBox("throw");
-				p6 = new ProgressBox("drop");
+				smallBallState = new ProgressBox("basket");
+				medBallState = new ProgressBox("throw");
+				bigBallState = new ProgressBox("drop");
 
-				activePanel2.add(p4);
-				activePanel2.add(p5);
-				activePanel2.add(p6);
+				activePanel2.add(smallBallState);
+				activePanel2.add(medBallState);
+				activePanel2.add(bigBallState);
 
-				p7 = new ProgressBox("finish");
+				finishState = new ProgressBox("finish");
 
 				rightPanel.add(activePanel);
 				rightPanel.add(activePanel2);
-				rightPanel.add(p7);
+				rightPanel.add(finishState);
 
 
 				// Create panel for the entire GUI.
@@ -599,28 +600,115 @@ import se.lth.control.plot.*;
 		}
 	}
 
-	public synchronized void setProgressStatus(int i) {
+	public synchronized void setProgressStatus(int ball) {
+		ModeMonitor.Mode mode = modeMon.getMode();
+
 		if(isInitialized){
-			switch (i) {
-				case 1:
-					p1.activate();
-					p2.deactivate();
-					p3.deactivate();
+			switch (mode) {
+				case START: {
+
+					//"START"
+					if(ball == 0) {
+						startState.activate();
+						alignState.deactivate();
+						fireState.deactivate();
+						weighState.deactivate();
+						smallBallState.deactivate();
+						medBallState.deactivate();
+						bigBallState.deactivate();
+						finishState.deactivate();
+						//"FINISH"
+					} else if (ball == -1) {
+						startState.deactivate();
+						alignState.deactivate();
+						fireState.deactivate();
+						weighState.deactivate();
+						smallBallState.deactivate();
+						medBallState.deactivate();
+						bigBallState.deactivate();
+						finishState.activate();
+					}
 					break;
-				case 2:
-					p1.deactivate();
-					p2.activate();
-					p3.deactivate();
+				}
+
+				case ALIGN: {
+					startState.deactivate();
+					alignState.activate();
+					fireState.deactivate();
+					weighState.deactivate();
+					smallBallState.deactivate();
+					medBallState.deactivate();
+					bigBallState.deactivate();
+					finishState.deactivate();
 					break;
-				case 3:
-					p1.deactivate();
-					p2.deactivate();
-					p3.activate();
+				}
+
+				case PUSH_BALL: {
+					startState.deactivate();
+					alignState.deactivate();
+					fireState.activate();
+					weighState.deactivate();
+					smallBallState.deactivate();
+					medBallState.deactivate();
+					bigBallState.deactivate();
+					finishState.deactivate();
 					break;
+				}
+				case WEIGH_BALL: {
+					startState.deactivate();
+					alignState.deactivate();
+					fireState.deactivate();
+					weighState.activate();
+					smallBallState.deactivate();
+					medBallState.deactivate();
+					bigBallState.deactivate();
+					finishState.deactivate();
+					break;
+				}
+
+				case MIDDLE: {
+					if(ball == 1) {
+						startState.deactivate();
+						alignState.deactivate();
+						fireState.deactivate();
+						weighState.deactivate();
+						smallBallState.activate();
+						medBallState.deactivate();
+						bigBallState.deactivate();
+						finishState.deactivate();
+					} else if (ball == 2) {
+						startState.deactivate();
+						alignState.deactivate();
+						fireState.deactivate();
+						weighState.deactivate();
+						smallBallState.deactivate();
+						medBallState.activate();
+						bigBallState.deactivate();
+						finishState.deactivate();
+					}
+					break;
+				}
+				case BIG: {
+					startState.deactivate();
+					alignState.deactivate();
+					fireState.deactivate();
+					weighState.deactivate();
+					smallBallState.deactivate();
+					medBallState.deactivate();
+					bigBallState.activate();
+					finishState.deactivate();
+
+				}
+
 				default:
-					p1.deactivate();
-					p2.deactivate();
-					p3.deactivate();
+					startState.deactivate();
+					alignState.deactivate();
+					fireState.deactivate();
+					weighState.deactivate();
+					smallBallState.deactivate();
+					medBallState.deactivate();
+					bigBallState.deactivate();
+					finishState.deactivate();
 					break;
 
 			}
