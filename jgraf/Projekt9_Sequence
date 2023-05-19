@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<GCDocument color="-1" dimTicks="25" dpwsInterface="" dpwsPort="-1" height="925" horizontalScrollBar="1" modifiable="1" name="J1" saveVersion="8" scale="0.78" simulationMode="0" socketHost="localhost" socketIsServer="0" socketPort="55000" socketSendMode="Changed" threadSpeed="40" tokenLuminance="0" verticalScrollBar="1" viewPositionX="-709" viewPositionY="0" width="1775" x="0" y="0">
-  <GCInitialStep actionBlockVisible="1" actionText="S ControlMode = &quot;START&quot;;&#10;S AngleBeam = 0;&#10;S Ball_Ref = 0;&#10;S Regulator = 2;&#10;S K_inner = &quot;2.40&quot;;&#10;S Fire = 1;&#10;&#10;" fileName="" height="70" id="038cacfe-8772-40e4-9970-f252944defaa" name="Set_Beam" useIcon="0" width="200" x="160" y="45"/>
+<GCDocument color="-1" dimTicks="25" dpwsInterface="" dpwsPort="-1" height="925" horizontalScrollBar="1" modifiable="1" name="J1" saveVersion="8" scale="0.78" simulationMode="0" socketHost="localhost" socketIsServer="0" socketPort="55000" socketSendMode="Changed" threadSpeed="40" tokenLuminance="0" verticalScrollBar="1" viewPositionX="-709" viewPositionY="0" width="1771" x="0" y="0">
+  <GCInitialStep actionBlockVisible="1" actionText="S ControlMode = &quot;START&quot;;&#10;S AngleBeam = 0;&#10;S BallRef = 0;&#10;S Regulator = 2;&#10;S KInner = &quot;2.40&quot;;&#10;S Fire = 1;&#10;&#10;" fileName="" height="70" id="038cacfe-8772-40e4-9970-f252944defaa" name="Set_Beam" useIcon="0" width="200" x="160" y="45"/>
   <GCTransition actionText="Set_Beam.s == 4" conditionVisible="1" height="25" id="ccaf3b24-8f23-40e8-b625-e2914532de26" width="30" x="245" y="130"/>
-  <GCStep actionBlockVisible="1" actionText="S Fire = 0;&#10;" fileName="" height="70" id="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" name="Fire_Block" useIcon="0" width="200" x="160" y="275"/>
-  <GCTransition actionText="Fire_Block.t == 11 &amp; POS &gt;= -10 &amp; POS &lt;= -8" conditionVisible="1" height="25" id="75c0fd44-075f-4139-9c7b-8391b16c37f6" width="30" x="225" y="380"/>
+  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;PUSH_BALL&quot;;&#10;" fileName="" height="70" id="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" name="Fire_Ball" useIcon="0" width="200" x="160" y="275"/>
+  <GCTransition actionText="Fire_Ball.t &gt;= 11 &amp; BallPosition &gt; -10 &amp; BallPosition &lt;= -6" conditionVisible="1" height="25" id="75c0fd44-075f-4139-9c7b-8391b16c37f6" width="30" x="225" y="380"/>
   <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;BALL&quot;;&#10;S Fire = 1;" fileName="" height="70" id="8fbea1ba-aff8-4d90-a4df-3bc46770aea9" name="Catch_Ball" useIcon="0" width="200" x="160" y="445"/>
   <GCTransition actionText="BallSize == 1" conditionVisible="1" height="25" id="92c2b592-a81c-4d30-874b-a461a54fc46a" width="30" x="-235" y="880"/>
   <GCTransition actionText="BallSize == 2" conditionVisible="1" height="25" id="2e57f9d7-bac8-4288-bd4e-a724c5e6f402" width="30" x="175" y="880"/>
   <GCTransition actionText="BallSize == 3" conditionVisible="1" height="25" id="86433e85-7b3a-471f-b99d-d57addb04d6a" width="30" x="535" y="880"/>
-  <GCStep actionBlockVisible="1" actionText="S Regulator = 0;&#10;S AngleBeam = 7;&#10;S ControlMode = &quot;MIDDLE&quot;;" fileName="" height="70" id="5013d4c3-f64d-44f2-85c8-767f1ff71fe2" name="Small_Ball" useIcon="0" width="200" x="-250" y="935"/>
-  <GCStep actionBlockVisible="1" actionText="S Regulator = 1;&#10;S Ball_Ref = -5;&#10;S ControlMode = &quot;MIDDLE&quot;;&#10;&#10;" fileName="" height="70" id="acbcc241-7041-4a63-b920-f19c42089148" name="Medium_Ball" useIcon="0" width="200" x="160" y="925"/>
+  <GCStep actionBlockVisible="1" actionText="S Regulator = 0;&#10;S AngleBeam = 7;&#10;S ControlMode = &quot;MEDIUM&quot;;" fileName="" height="70" id="5013d4c3-f64d-44f2-85c8-767f1ff71fe2" name="Small_Ball" useIcon="0" width="200" x="-250" y="935"/>
+  <GCStep actionBlockVisible="1" actionText="S Regulator = 1;&#10;S BallRef = -6;&#10;S ControlMode = &quot;MEDIUM&quot;;&#10;&#10;" fileName="" height="70" id="acbcc241-7041-4a63-b920-f19c42089148" name="Medium_Ball" useIcon="0" width="200" x="160" y="925"/>
   <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;BIG&quot;;&#10;S AngleBeam = -3;" fileName="" height="70" id="2b75ed28-2589-433d-badf-4619349de543" name="Large_Ball" useIcon="0" width="200" x="520" y="925"/>
   <SocketIntOut height="60" identifier="" name="SizeOut" procelmode="0" sendMode="Inherit" value="1" width="96" x="-90" y="50"/>
-  <SocketIntOut height="60" identifier="" name="AngleBeam" procelmode="0" sendMode="Inherit" value="120" width="96" x="-200" y="50"/>
-  <GCTransition actionText="BallPosition &lt;= 1" conditionVisible="1" height="25" id="c2e126ad-94a9-4b39-800c-d633400c366c" width="30" x="-235" y="1080"/>
-  <GCStep actionBlockVisible="1" actionText="S K_inner = &quot;3.40&quot;;&#10;S AngleBeam = -8;" fileName="" height="70" id="8724fd2c-32ff-40d8-a740-84029ceb98fc" name="Small_Throw" useIcon="0" width="200" x="-250" y="1145"/>
-  <GCTransition actionText="BallPosition &lt;= -5" conditionVisible="1" height="25" id="1aa05e0e-59cb-4f1d-9280-e85a95b649ee" width="30" x="175" y="1060"/>
-  <GCTransition actionText="Large_Ball.t &gt; 20" conditionVisible="1" height="25" id="e77df863-ecae-46af-8c3a-c25dc9c96c9b" width="30" x="535" y="1140"/>
-  <GCStep actionBlockVisible="1" actionText="S Regulator = 0;&#10;S K_inner = &quot;3.4&quot;;&#10;S AngleBeam = -8;" fileName="" height="70" id="e73d005b-1dfb-4296-bda5-7b77ddb93e17" name="Medium_Angle_Adjust" useIcon="0" width="200" x="160" y="1135"/>
-  <GCTransition actionText="Small_Throw.t &gt; 20" conditionVisible="1" height="25" id="618bf8e3-2439-471b-9370-95501ce479e0" width="30" x="-235" y="1310"/>
-  <GCTransition actionText="BallPosition &gt;= 2" conditionVisible="1" height="25" id="e11c82f6-f254-4d03-ad6c-7b814939156d" width="30" x="175" y="1350"/>
-  <SocketIntIn height="60" identifier="" name="BallPosition" value="11" width="80" x="-330" y="150"/>
-  <GCStep actionBlockVisible="1" actionText="S AngleBeam = 7;" fileName="" height="70" id="537ccac7-677a-4ee7-a0cb-dcf03be4558f" name="Medium_Throw" useIcon="0" width="200" x="160" y="1415"/>
-  <GCTransition actionText="Medium_Throw.t &gt; 200" conditionVisible="1" height="25" id="440c3b49-fdd6-40a8-9412-8e18faa866e0" width="30" x="615" y="1510"/>
-  <SocketIntIn height="60" identifier="" name="BallSize" value="2" width="80" x="-460" y="150"/>
-  <SocketBooleanOut height="60" identifier="" name="PushBall" procelmode="0" sendMode="Inherit" value="1" width="96" x="-450" y="50"/>
-  <SocketStringIn height="60" identifier="volt" name="volt" value="" width="80" x="-190" y="150"/>
-  <DigitalOut channel="0" height="60" name="Fire" value="0" width="80" x="-460" y="380"/>
+  <SocketIntOut height="60" identifier="" name="AngleBeam" procelmode="0" sendMode="Inherit" value="0" width="96" x="-200" y="50"/>
+  <GCTransition actionText="BallPosition &lt;= 0" conditionVisible="1" height="25" id="c2e126ad-94a9-4b39-800c-d633400c366c" width="30" x="-235" y="1080"/>
+  <GCStep actionBlockVisible="1" actionText="S KInner = &quot;4.20&quot;;&#10;S AngleBeam = -8;" fileName="" height="70" id="8724fd2c-32ff-40d8-a740-84029ceb98fc" name="Small_Throw" useIcon="0" width="200" x="-250" y="1145"/>
+  <GCTransition actionText="BallPosition &lt;= -6" conditionVisible="1" height="25" id="1aa05e0e-59cb-4f1d-9280-e85a95b649ee" width="30" x="175" y="1060"/>
+  <GCTransition actionText="Large_Finish.s &gt; 2" conditionVisible="1" height="25" id="e77df863-ecae-46af-8c3a-c25dc9c96c9b" width="30" x="535" y="1190"/>
+  <GCStep actionBlockVisible="1" actionText="S Regulator = 0;&#10;S KInner = &quot;5.0&quot;;&#10;S AngleBeam = -8;" fileName="" height="70" id="e73d005b-1dfb-4296-bda5-7b77ddb93e17" name="Medium_Angle_Adjust" useIcon="0" width="200" x="160" y="1135"/>
+  <GCTransition actionText="Small_Finish.s &gt; 2" conditionVisible="1" height="25" id="618bf8e3-2439-471b-9370-95501ce479e0" width="30" x="-235" y="1390"/>
+  <GCTransition actionText="BallPosition &gt;= 0" conditionVisible="1" height="25" id="e11c82f6-f254-4d03-ad6c-7b814939156d" width="30" x="175" y="1250"/>
+  <SocketIntIn height="60" identifier="" name="BallPosition" value="8" width="80" x="-320" y="240"/>
+  <GCStep actionBlockVisible="1" actionText="S AngleBeam = 7;" fileName="" height="70" id="537ccac7-677a-4ee7-a0cb-dcf03be4558f" name="Medium_Throw" useIcon="0" width="200" x="160" y="1295"/>
+  <GCTransition actionText="Medium_Finish.s &gt; 2" conditionVisible="1" height="25" id="440c3b49-fdd6-40a8-9412-8e18faa866e0" width="30" x="175" y="1520"/>
+  <SocketIntIn height="60" identifier="" name="BallSize" value="3" width="80" x="-430" y="240"/>
+  <SocketBooleanOut height="60" identifier="" name="PushBall" procelmode="0" sendMode="Inherit" value="1" width="96" x="-310" y="50"/>
+  <DigitalOut channel="0" height="60" name="Fire" value="1" width="80" x="-430" y="330"/>
   <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;ALIGN&quot;;" fileName="" height="70" id="0a7d57e2-0606-4a3f-acc0-0538c7abcb0f" name="" useIcon="0" width="200" x="160" y="165"/>
-  <GCTransition actionText="BeamAligned == &quot;true&quot;" conditionVisible="1" height="25" id="4f700b9b-7524-4ddd-aadc-d90107ebe322" width="30" x="245" y="240"/>
-  <SocketStringOut height="60" identifier="" name="ControlMode" procelmode="0" sendMode="Inherit" value="ALIGN" width="96" x="-320" y="50"/>
-  <SocketBooleanIn height="60" identifier="" name="BALL_MIDDLE" value="0" width="80" x="-330" y="260"/>
-  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;WEIGH_BALL&quot;;" fileName="" height="70" id="9117243a-081d-4d18-be76-abf6c48f0d97" name="WeighBall" useIcon="0" width="200" x="160" y="575"/>
-  <SocketStringOut height="60" identifier="" name="Parameters" procelmode="0" sendMode="Inherit" value="STANDARD" width="96" x="-330" y="370"/>
-  <SocketIntOut height="60" identifier="" name="Ball_Ref" procelmode="0" sendMode="Inherit" value="0" width="96" x="-190" y="380"/>
-  <SocketStringIn height="60" identifier="" name="BeamAligned" value="true" width="80" x="-180" y="260"/>
+  <GCTransition actionText="BeamAligned == 1" conditionVisible="1" height="25" id="4f700b9b-7524-4ddd-aadc-d90107ebe322" width="30" x="245" y="240"/>
+  <SocketStringOut height="60" identifier="" name="ControlMode" procelmode="0" sendMode="Inherit" value="START" width="96" x="-310" y="140"/>
+  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;WEIGH_BALL&quot;;" fileName="" height="70" id="9117243a-081d-4d18-be76-abf6c48f0d97" name="Weigh_Ball" useIcon="0" width="200" x="160" y="575"/>
+  <SocketIntOut height="60" identifier="" name="BallRef" procelmode="0" sendMode="Inherit" value="0" width="96" x="-430" y="50"/>
   <GCTransition actionText="Catch_Ball.s == 4" conditionVisible="1" height="25" id="75ca6b00-21a3-4687-87cb-da42c298e9a4" width="30" x="175" y="530"/>
-  <GCTransition actionText="WeighBall.s == 15" conditionVisible="1" height="25" id="b270ca53-a761-415b-b018-d32a608f7608" width="30" x="165" y="680"/>
+  <GCTransition actionText="Weigh_Ball.s == 15" conditionVisible="1" height="25" id="b270ca53-a761-415b-b018-d32a608f7608" width="30" x="165" y="680"/>
   <GCStep actionBlockVisible="0" actionText=";" fileName="" height="70" id="cf1167c2-3a09-4ace-a1cb-229ecb7955d8" name="" useIcon="0" width="60" x="150" y="715"/>
-  <AnalogIn channel="1" cyclic="1" height="60" name="POS" value="-8.519" width="80" x="-460" y="520"/>
-  <SocketIntOut height="60" identifier="" name="Regulator" procelmode="0" sendMode="Inherit" value="2" width="96" x="-310" y="520"/>
-  <SocketStringOut height="60" identifier="" name="K_inner" procelmode="0" sendMode="Inherit" value="2.40" width="96" x="-140" y="520"/>
+  <SocketIntOut height="60" identifier="" name="Regulator" procelmode="0" sendMode="Inherit" value="2" width="96" x="-430" y="140"/>
+  <SocketStringOut height="60" identifier="" name="KInner" procelmode="0" sendMode="Inherit" value="2.40" width="96" x="-190" y="140"/>
+  <SocketIntIn height="60" identifier="" name="BeamAligned" value="0" width="80" x="-200" y="240"/>
+  <GCTransition actionText="Small_Throw.t &gt; 20" conditionVisible="1" height="25" id="d286f3a0-7838-4ba9-a377-3bded60bcfe3" width="30" x="-235" y="1260"/>
+  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;FINISH&quot;;" fileName="" height="70" id="77e207ef-a0d4-4706-aa96-9d1b91632773" name="Small_Finish" useIcon="0" width="200" x="-250" y="1295"/>
+  <GCTransition actionText="Medium_Throw.t &gt; 200" conditionVisible="1" height="25" id="9e6d8770-a634-4106-b460-8178c2584b25" width="30" x="175" y="1390"/>
+  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;FINISH&quot;;" fileName="" height="70" id="bbf8d68f-2a31-4f33-99f4-488707e5dad3" name="Medium_Finish" useIcon="0" width="200" x="160" y="1415"/>
+  <GCTransition actionText="Large_Ball.t &gt; 20" conditionVisible="1" height="25" id="f5d15ba2-c1df-42ae-aafb-ef9042fb2b89" width="30" x="535" y="1040"/>
+  <GCStep actionBlockVisible="1" actionText="S ControlMode = &quot;FINISH&quot;;" fileName="" height="70" id="27f93f86-fe42-4e73-8a05-87f07995fc2d" name="Large_Finish" useIcon="0" width="200" x="520" y="1085"/>
   <GCLink fromObject="16b50a05-5ff1-4107-84e6-d4335f5ef6e5" manAdj="0" toObject="75c0fd44-075f-4139-9c7b-8391b16c37f6">
     <Stroke x="190" y="346"/>
     <Stroke x="190" y="356"/>
@@ -97,14 +99,6 @@
     <Stroke x="-220" y="1134"/>
     <Stroke x="-220" y="1144"/>
   </GCLink>
-  <GCLink fromObject="2b75ed28-2589-433d-badf-4619349de543" manAdj="0" toObject="e77df863-ecae-46af-8c3a-c25dc9c96c9b">
-    <Stroke x="550" y="996"/>
-    <Stroke x="550" y="1006"/>
-    <Stroke x="550" y="1067"/>
-    <Stroke x="550" y="1067"/>
-    <Stroke x="550" y="1129"/>
-    <Stroke x="550" y="1139"/>
-  </GCLink>
   <GCLink fromObject="acbcc241-7041-4a63-b920-f19c42089148" manAdj="0" toObject="1aa05e0e-59cb-4f1d-9280-e85a95b649ee">
     <Stroke x="190" y="996"/>
     <Stroke x="190" y="1006"/>
@@ -114,10 +108,10 @@
     <Stroke x="190" y="1059"/>
   </GCLink>
   <GCLink fromObject="e77df863-ecae-46af-8c3a-c25dc9c96c9b" manAdj="0" toObject="038cacfe-8772-40e4-9970-f252944defaa">
-    <Stroke x="550" y="1166"/>
-    <Stroke x="550" y="1176"/>
-    <Stroke x="777" y="1176"/>
-    <Stroke x="777" y="34"/>
+    <Stroke x="550" y="1216"/>
+    <Stroke x="550" y="1226"/>
+    <Stroke x="917" y="1226"/>
+    <Stroke x="917" y="34"/>
     <Stroke x="190" y="34"/>
     <Stroke x="190" y="44"/>
   </GCLink>
@@ -129,51 +123,35 @@
     <Stroke x="190" y="1124"/>
     <Stroke x="190" y="1134"/>
   </GCLink>
-  <GCLink fromObject="8724fd2c-32ff-40d8-a740-84029ceb98fc" manAdj="0" toObject="618bf8e3-2439-471b-9370-95501ce479e0">
-    <Stroke x="-220" y="1216"/>
-    <Stroke x="-220" y="1226"/>
-    <Stroke x="-220" y="1262"/>
-    <Stroke x="-220" y="1262"/>
-    <Stroke x="-220" y="1299"/>
-    <Stroke x="-220" y="1309"/>
-  </GCLink>
   <GCLink fromObject="e73d005b-1dfb-4296-bda5-7b77ddb93e17" manAdj="0" toObject="e11c82f6-f254-4d03-ad6c-7b814939156d">
     <Stroke x="190" y="1206"/>
     <Stroke x="190" y="1216"/>
-    <Stroke x="190" y="1277"/>
-    <Stroke x="190" y="1277"/>
-    <Stroke x="190" y="1339"/>
-    <Stroke x="190" y="1349"/>
+    <Stroke x="190" y="1227"/>
+    <Stroke x="190" y="1227"/>
+    <Stroke x="190" y="1239"/>
+    <Stroke x="190" y="1249"/>
   </GCLink>
   <GCLink fromObject="618bf8e3-2439-471b-9370-95501ce479e0" manAdj="0" toObject="038cacfe-8772-40e4-9970-f252944defaa">
-    <Stroke x="-220" y="1336"/>
-    <Stroke x="-220" y="1346"/>
-    <Stroke x="781" y="1346"/>
-    <Stroke x="781" y="34"/>
+    <Stroke x="-220" y="1416"/>
+    <Stroke x="-220" y="1486"/>
+    <Stroke x="915" y="1486"/>
+    <Stroke x="915" y="34"/>
     <Stroke x="190" y="34"/>
     <Stroke x="190" y="44"/>
   </GCLink>
   <GCLink fromObject="e11c82f6-f254-4d03-ad6c-7b814939156d" manAdj="0" toObject="537ccac7-677a-4ee7-a0cb-dcf03be4558f">
-    <Stroke x="190" y="1376"/>
-    <Stroke x="190" y="1386"/>
-    <Stroke x="190" y="1395"/>
-    <Stroke x="190" y="1395"/>
-    <Stroke x="190" y="1404"/>
-    <Stroke x="190" y="1414"/>
-  </GCLink>
-  <GCLink fromObject="537ccac7-677a-4ee7-a0cb-dcf03be4558f" manAdj="0" toObject="440c3b49-fdd6-40a8-9412-8e18faa866e0">
-    <Stroke x="190" y="1486"/>
-    <Stroke x="190" y="1496"/>
-    <Stroke x="190" y="1497"/>
-    <Stroke x="630" y="1497"/>
-    <Stroke x="630" y="1499"/>
-    <Stroke x="630" y="1509"/>
+    <Stroke x="190" y="1276"/>
+    <Stroke x="190" y="1286"/>
+    <Stroke x="190" y="1286"/>
+    <Stroke x="190" y="1284"/>
+    <Stroke x="190" y="1284"/>
+    <Stroke x="190" y="1294"/>
   </GCLink>
   <GCLink fromObject="440c3b49-fdd6-40a8-9412-8e18faa866e0" manAdj="0" toObject="038cacfe-8772-40e4-9970-f252944defaa">
-    <Stroke x="630" y="1536"/>
-    <Stroke x="630" y="1546"/>
-    <Stroke x="877" y="1546"/>
-    <Stroke x="877" y="34"/>
+    <Stroke x="190" y="1546"/>
+    <Stroke x="190" y="1556"/>
+    <Stroke x="935" y="1556"/>
+    <Stroke x="935" y="34"/>
     <Stroke x="190" y="34"/>
     <Stroke x="190" y="44"/>
   </GCLink>
@@ -264,5 +242,77 @@
     <Stroke x="550" y="832"/>
     <Stroke x="550" y="869"/>
     <Stroke x="550" y="879"/>
+  </GCLink>
+  <GCLink fromObject="8724fd2c-32ff-40d8-a740-84029ceb98fc" manAdj="0" toObject="d286f3a0-7838-4ba9-a377-3bded60bcfe3">
+    <Stroke x="-220" y="1216"/>
+    <Stroke x="-220" y="1226"/>
+    <Stroke x="-220" y="1237"/>
+    <Stroke x="-220" y="1237"/>
+    <Stroke x="-220" y="1249"/>
+    <Stroke x="-220" y="1259"/>
+  </GCLink>
+  <GCLink fromObject="d286f3a0-7838-4ba9-a377-3bded60bcfe3" manAdj="0" toObject="77e207ef-a0d4-4706-aa96-9d1b91632773">
+    <Stroke x="-220" y="1286"/>
+    <Stroke x="-220" y="1296"/>
+    <Stroke x="-220" y="1296"/>
+    <Stroke x="-220" y="1284"/>
+    <Stroke x="-220" y="1284"/>
+    <Stroke x="-220" y="1294"/>
+  </GCLink>
+  <GCLink fromObject="77e207ef-a0d4-4706-aa96-9d1b91632773" manAdj="0" toObject="618bf8e3-2439-471b-9370-95501ce479e0">
+    <Stroke x="-220" y="1366"/>
+    <Stroke x="-220" y="1376"/>
+    <Stroke x="-220" y="1377"/>
+    <Stroke x="-220" y="1377"/>
+    <Stroke x="-220" y="1379"/>
+    <Stroke x="-220" y="1389"/>
+  </GCLink>
+  <GCLink fromObject="537ccac7-677a-4ee7-a0cb-dcf03be4558f" manAdj="0" toObject="9e6d8770-a634-4106-b460-8178c2584b25">
+    <Stroke x="190" y="1366"/>
+    <Stroke x="190" y="1376"/>
+    <Stroke x="190" y="1377"/>
+    <Stroke x="190" y="1377"/>
+    <Stroke x="190" y="1379"/>
+    <Stroke x="190" y="1389"/>
+  </GCLink>
+  <GCLink fromObject="9e6d8770-a634-4106-b460-8178c2584b25" manAdj="0" toObject="bbf8d68f-2a31-4f33-99f4-488707e5dad3">
+    <Stroke x="190" y="1416"/>
+    <Stroke x="190" y="1426"/>
+    <Stroke x="190" y="1426"/>
+    <Stroke x="190" y="1404"/>
+    <Stroke x="190" y="1404"/>
+    <Stroke x="190" y="1414"/>
+  </GCLink>
+  <GCLink fromObject="bbf8d68f-2a31-4f33-99f4-488707e5dad3" manAdj="0" toObject="440c3b49-fdd6-40a8-9412-8e18faa866e0">
+    <Stroke x="190" y="1486"/>
+    <Stroke x="190" y="1496"/>
+    <Stroke x="190" y="1502"/>
+    <Stroke x="190" y="1502"/>
+    <Stroke x="190" y="1509"/>
+    <Stroke x="190" y="1519"/>
+  </GCLink>
+  <GCLink fromObject="2b75ed28-2589-433d-badf-4619349de543" manAdj="0" toObject="f5d15ba2-c1df-42ae-aafb-ef9042fb2b89">
+    <Stroke x="550" y="996"/>
+    <Stroke x="550" y="1006"/>
+    <Stroke x="550" y="1017"/>
+    <Stroke x="550" y="1017"/>
+    <Stroke x="550" y="1029"/>
+    <Stroke x="550" y="1039"/>
+  </GCLink>
+  <GCLink fromObject="f5d15ba2-c1df-42ae-aafb-ef9042fb2b89" manAdj="0" toObject="27f93f86-fe42-4e73-8a05-87f07995fc2d">
+    <Stroke x="550" y="1066"/>
+    <Stroke x="550" y="1076"/>
+    <Stroke x="550" y="1076"/>
+    <Stroke x="550" y="1074"/>
+    <Stroke x="550" y="1074"/>
+    <Stroke x="550" y="1084"/>
+  </GCLink>
+  <GCLink fromObject="27f93f86-fe42-4e73-8a05-87f07995fc2d" manAdj="0" toObject="e77df863-ecae-46af-8c3a-c25dc9c96c9b">
+    <Stroke x="550" y="1156"/>
+    <Stroke x="550" y="1166"/>
+    <Stroke x="550" y="1172"/>
+    <Stroke x="550" y="1172"/>
+    <Stroke x="550" y="1179"/>
+    <Stroke x="550" y="1189"/>
   </GCLink>
 </GCDocument>
