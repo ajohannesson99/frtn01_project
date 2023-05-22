@@ -719,6 +719,7 @@ import se.lth.control.plot.*;
 
 	}
 		public synchronized void updateParams() {
+			innerPar = regul.getInnerParameters();
 			innerParKField.setValue(innerPar.K);
 		}
 }
