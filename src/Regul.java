@@ -446,10 +446,10 @@ public class Regul extends Thread {
 
                         //changes K_inner
                         innerParam.K = server.K_inner;
-                        opCom.updateParams();
 
 
                         inner.setParameters(innerParam);
+                        opCom.updateParams();
 
                         angle = readInput(analogInAngle);
                         angleRef = server.angleRef;
