@@ -223,6 +223,7 @@ public class Regul extends Thread {
 		    server.writeMessage("BallPosition", "" + 11);
             innerParam.K = 2.4;
             inner.setParameters(innerParam);
+            opCom.updateParams();
             opCom.changeActiveSize(-1);
          opCom.setProgressStatus(0);
 	     modeMon.setMode(ModeMonitor.Mode.BEAM);
@@ -442,8 +443,14 @@ public class Regul extends Thread {
 			}*/
 
                     if(server.regulator == 0){
+
+                        //changes K_inner
                         innerParam.K = server.K_inner;
+                        opCom.updateParams();
+
+
                         inner.setParameters(innerParam);
+
                         angle = readInput(analogInAngle);
                         angleRef = server.angleRef;
                         refGen.setManual(angleRef);

@@ -716,5 +716,9 @@ import se.lth.control.plot.*;
 		} else {
 			System.out.println("Note: GUI not yet initialized. Ignoring call to setProgressStatus().");
 		}
+
 	}
+		public synchronized void updateParams() {
+			innerParKField.setValue(innerPar.K);
+		}
 }
