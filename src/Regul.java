@@ -39,7 +39,6 @@ public class Regul extends Thread {
 
     private SocketServer server;
 
-    private int counterTrue;
 
 
 
@@ -71,43 +70,28 @@ public class Regul extends Thread {
 
         setOuterParameters(outerParam);
 
-	counter = 0;
+	    counter = 0;
 
-    volt = new ArrayList<>();
+        volt = new ArrayList<>();
 
 
        try {
-            analogInAngle = new AnalogIn(0);
-            analogInPosition = new AnalogIn(1);
-            analogInRef = new AnalogIn(2);
-            sensor = new DigitalIn(0);
-
-            analogOut = new AnalogOut(0);
-            fire = new DigitalOut(0);
+           analogInAngle = new AnalogIn(0);
+           analogInPosition = new AnalogIn(1);
+           analogInRef = new AnalogIn(2);
+           sensor = new DigitalIn(0);
+           analogOut = new AnalogOut(0);
+           fire = new DigitalOut(0);
+           analogOut.set(0.0);
+           angle = analogInAngle.get();
+           position = analogInPosition.get();
+           ref = analogInRef.get();
 
 
        } catch (Exception e) {
             System.out.print("Error: IOChannelException: ");
             System.out.println(e.getMessage());
         }
-
-        try {
-            analogOut.set(0.0);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        try{
-            angle = analogInAngle.get();
-            position = analogInPosition.get();
-            ref = analogInRef.get();
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
-
-
-
     }
 
     /** Sets OpCom (called from main) */
@@ -174,24 +158,16 @@ public class Regul extends Thread {
         long duration;
         long t = System.currentTimeMillis();
         startTime = t;
-
         double angleRef = 0.0;
-        double yRef, y, u;
-	boolean aligned = false;
+        double yRef, y;
+        double u = 0.0;
+	    boolean aligned = false;
         int ballSize = 0;
 
-
-
         while (shouldRun) {
-            /** Written by you */
-            y = readInput(analogInPosition);
 
-            server.writeMessage("BallPosition", "" + ((int) y));
+            sendBallPosition();
 
-            //position = readInput(analogInPosition);
-            //angle = readInput(analogInAngle);
-
-            //y = position;
             switch (modeMon.getMode()) {
                 case OFF: {
                     /** Written by you */
@@ -209,133 +185,66 @@ public class Regul extends Thread {
                     angleRef = 0.0;
                     refGen.setManual(0.0);
                     position = 0.0;
-		    aligned = false;
-		    counter = 0;
-            try {
-                fire.set(true);
-            }catch (Exception e){
-                break;
-            }
+		            aligned = false;
+		            counter = 0;
+                    if (resetFire()) break;
                     server.writeMessage("BeamAligned", "" + 0);
-		    volt = new ArrayList<>();
-		    server.writeMessage("sensor", "" + aligned);
-                   
-		    server.writeMessage("BallPosition", "" + 11);
-            innerParam.K = 2.4;
-            inner.setParameters(innerParam);
-            opCom.updateParams();
-            opCom.changeActiveSize(-1);
-         opCom.setProgressStatus(0);
-	     modeMon.setMode(ModeMonitor.Mode.BEAM);
+                    volt = new ArrayList<>();
+
+                    innerParam.K = 2.4;
+                    inner.setParameters(innerParam);
+                    opCom.updateParams();
+                    opCom.changeActiveSize(-1);
+                    opCom.setProgressStatus(0);
+                    modeMon.setMode(ModeMonitor.Mode.BEAM);
                 }
 
                 case BEAM: {
                     angle = readInput(analogInAngle);
                     angleRef = refGen.getRef();
-                	 /** Written by you */
-
-                    synchronized (inner) { 
-                        u = limit(inner.calculateOutput(angle, angleRef));
-                        writeOutput(u);
-                        inner.updateState(u);
-                    }
-                    sendDataToOpCom(angleRef, angle, u);
-                    
+                    innerRegulator(u, angle, angleRef);
                     break;
                 }
                 case BALL: {
                     /** Written by you */
                     angle = readInput(analogInAngle);
                     angleRef = refGen.getRef();
-         
-                   
                     y = readInput(analogInPosition);
-		    System.out.println(y);
                     yRef = refGen.getRef();
-                    double phiff = refGen.getPhiff();
                     
                     synchronized (outer) {
                         angleRef = limit(outer.calculateOutput(y, yRef));
-                        // writeOutput(angleRef);
                         outer.updateState(angleRef);
                     }
-                    
-                    double uff = refGen.getUff();
-                    
-                    synchronized (inner) {
-                        u = limit(inner.calculateOutput(angle, angleRef));
-
-			
-                        
-                        writeOutput(u);
-                        inner.updateState(u);
-                    }
-                
-// Added a comment :))))
-
-                    sendDataToOpCom(y, yRef, u);
+                    innerRegulator(u, angle, angleRef);
                     break;
                 }
 
                 case ALIGN: {
                     angle = readInput(analogInAngle);
-		  
-                   
-		    //refGen.setManual(angleRef);
-                    
-
                     try{
                         aligned = !sensor.get();
-			//server.writeMessage("sensor", "" + !sensor.get());
-			System.out.println(aligned);
-		       
-			if(aligned){
-			    counter += 1;
-			}else{
-			    counter = 0;
-			    }
+                        if(aligned){
+                            counter += 1;
+                        } else {
+                            counter = 0;
+                        }
 			
-                    }catch (Exception e) {
-			System.out.println("error");
+                    } catch (Exception e) {
+			            System.out.println("error");
                     }
 
                     if(!aligned){
-			angleRef -= 0.005;
-			//server.writeMessage("angleRef", "" + angleRef);
-
+			            angleRef -= 0.005;
 		     
-		}else if (counter > 10) {
-			refGen.setManual(angleRef);
-			//counter = 0;
-			server.writeMessage("BeamAligned", "" + 1);
-			}
+                    } else if (counter > 10) {
+			            refGen.setManual(angleRef);
+                        server.writeMessage("BeamAligned", "" + 1);
+			        }
 
                     opCom.setProgressStatus(-1);
 
-                    synchronized (inner) {
-                        u = limit(inner.calculateOutput(angle, angleRef));
-                        writeOutput(u);
-                        inner.updateState(u);
-                    }
-                    sendDataToOpCom(angleRef, angle, u);
-
-		    /** try{
-                        aligned = !sensor.get();
-                    }catch (Exception e) {
-                        System.out.println("Whoops");
-			}
-
-		    //server.writeMessage("Aligned", ""+ aligned);
-		   
-		   
-                    if (aligned){
-			// modeMon.setMode(ModeMonitor.Mode.BEAM);
-			    refGen.setManual(angleRef);
-                            server.writeMessage("BeamAligned", "true");
-			    } */ 
-
-    
-
+                    innerRegulator(u, angle, angleRef);
                     break;
 
                 }
@@ -348,32 +257,19 @@ public class Regul extends Thread {
 
                     try{
                         fire.set(false);
-			// fire.set(true);
                     } catch (Exception e){
                         break;
                     }
 
-                    synchronized (inner) {
-                        u = limit(inner.calculateOutput(angle, angleRef));
-                        writeOutput(u);
-                        inner.updateState(u);
-                    }
-                    sendDataToOpCom(angleRef, angle, u);
-
-
-
-
+                    innerRegulator(u, angle, angleRef);
                     break;
                 }
 
-		    case WEIGH_BALL: {
-
+		        case WEIGH_BALL: {
                     y = readInput(analogInPosition);
                     refGen.setManual(2.0);
                     yRef = refGen.getRef();
-		    angle = readInput(analogInAngle);
-
-
+		            angle = readInput(analogInAngle);
 
                     synchronized (outer) {
                         angleRef = limit(outer.calculateOutput(y, yRef));
@@ -385,8 +281,6 @@ public class Regul extends Thread {
                     synchronized (inner) {
                         u = limit(inner.calculateOutput(angle, angleRef));
                         volt.add(u);
-
-
                         writeOutput(u);
                         inner.updateState(u);
                     }
@@ -394,7 +288,6 @@ public class Regul extends Thread {
                     sendDataToOpCom(y, yRef, u);
 
                     double mean = meanOfVolt(volt);
-
 
                     if(mean < 0.33) {
                         ballSize = 1;
@@ -404,17 +297,13 @@ public class Regul extends Thread {
                         ballSize = 3;
                     }
 
-                    System.out.println(ballSize);
-		    server.writeMessage("BallSize", "" + ballSize);
 
-            opCom.setProgressStatus(ballSize);
+		            server.writeMessage("BallSize", "" + ballSize);
 
+                    opCom.setProgressStatus(ballSize);
 
-
-                    //Beräknar vilken boll varje loop
-                    // Skickar hela tiden
-		    break;
-		    }
+		            break;
+		        }
 
                 case BIG: {
                     opCom.changeActiveSize(ballSize);
@@ -422,13 +311,7 @@ public class Regul extends Thread {
                     angleRef = server.angleRef;
                     refGen.setManual(angleRef);
 
-                    synchronized (inner){
-                        u = limit(inner.calculateOutput(angle, angleRef));
-                        writeOutput(u);
-                        inner.updateState(u);
-                    }
-
-                    sendDataToOpCom(angleRef, angle, u);
+                    innerRegulator(u, angle, angleRef);
                     opCom.setProgressStatus(ballSize);
                     break;
 
@@ -438,36 +321,20 @@ public class Regul extends Thread {
                     opCom.changeActiveSize(ballSize);
                     y = readInput(analogInPosition);
 
-                    /*if(Math.abs(y) >= 0 && Math.abs(y) <= 7) {
-                        server.writeMessage("BallPosition" , "" + ((int) y));
-			}*/
-
                     if(server.regulator == 0){
-
-                        //changes K_inner
                         innerParam.K = server.K_inner;
-
-
                         inner.setParameters(innerParam);
                         opCom.updateParams();
-
                         angle = readInput(analogInAngle);
                         angleRef = server.angleRef;
                         refGen.setManual(angleRef);
 
-                        synchronized (inner) {
-                            u = limit(inner.calculateOutput(angle, angleRef));
-                            writeOutput(u);
-                            inner.updateState(u);
-                        }
-
-                        sendDataToOpCom(angleRef, angle, u);
+                        innerRegulator(u, angle, angleRef);
                         opCom.setProgressStatus(ballSize);
                         break;
 
                     } else if (server.regulator == 1) {
                         yRef = server.pos_ref;
-
                         synchronized (outer) {
                             angleRef = limit(outer.calculateOutput(y, yRef));
                             outer.updateState(angleRef);
@@ -475,13 +342,7 @@ public class Regul extends Thread {
 
                         angle = readInput(analogInAngle);
 
-                        synchronized (inner) {
-                            u = limit(inner.calculateOutput(angle, angleRef));
-                            writeOutput(u);
-                            inner.updateState(u);
-                        }
-
-                        sendDataToOpCom(y, yRef, u);
+                        innerRegulator(u, angle, angleRef);
                         opCom.setProgressStatus(ballSize);
                         break;
 
@@ -519,9 +380,31 @@ public class Regul extends Thread {
                 System.out.println("Lagging behind...");
             }
         }
-        /** Written by you: Set control signal to zero before exiting run loop */
+    }
 
+    private boolean resetFire() {
+        try {
+            fire.set(true);
+        }catch (Exception e){
+            return true;
+        }
+        return false;
+    }
 
+    private void innerRegulator(double u, double angle, double angleRef){
+
+        synchronized (inner) {
+            u = limit(inner.calculateOutput(angle, angleRef));
+            writeOutput(u);
+            inner.updateState(u);
+        }
+        sendDataToOpCom(angleRef, angle, u);
+    }
+
+    private void sendBallPosition() {
+        double y;
+        y = readInput(analogInPosition);
+        server.writeMessage("BallPosition", "" + ((int) y));
     }
 
     // Writes the control signal u to the output channel: analogOut
